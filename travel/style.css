@@ -15,20 +15,26 @@
   src: url("assets/fonts/Aleo-Regular.ttf");
   font-weight: 700;
 }
-/*
+
+@font-face {
+  font-family: "Aleo-Bold";
+  src: url("assets/fonts/Aleo-Bold.ttf");
+}
+
 * {
   border: 1px solid red;
 }
-*/
+
 body {
   max-width: 1440px;
   margin: 0 auto;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   position: absolute;
   width: 1440px;
   z-index: 2;
@@ -121,17 +127,20 @@ body {
 
 .search-block {
   display: block;
-  
+  width: 892px;
   margin: 122px 0 0 120px;
 }
 
 .preview-title {
+  font-family: Aleo-Bold, serif ;
   font-size: 80px;
+  margin: 0;
 }
 
 .preview-description {
   font-style: italic;
   font-size: 20px;
+  margin: 32px 0;
 }
 
 .search-box {
@@ -147,6 +156,7 @@ body {
 
 .search-text {
   width: 560px;
+  margin: 0;
   font-style: italic;
   font-size: 24px;
   color: #F2785C;
@@ -156,6 +166,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
   padding: 13.5px 32.5px;
   background-color: #0D606F;
   border: 0;
