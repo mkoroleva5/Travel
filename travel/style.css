@@ -10,24 +10,40 @@
   font-weight: 500;
 }
 
+@font-face {
+  font-family: "Aleo";
+  src: url("assets/fonts/Aleo-Regular.ttf");
+  font-weight: 700;
+}
+/*
+* {
+  border: 1px solid red;
+}
+*/
 body {
   max-width: 1440px;
   margin: 0 auto;
-  min-width: 100vh;
-  border: 1px solid red;
+  min-height: 100vh;
 }
 
 .header {
   display: flex;
+  justify-content: space-around;
+  position: absolute;
+  width: 1440px;
+  z-index: 2;
   height: 90px;
-  background-color: #F2785C;
-  opacity: 0.7;
-  box-shadow: 0 3px 5px#0D606F;
+  background-color: rgb(242, 120, 92, 0.7);
+  box-shadow: 0 4px 4px rgb(13, 96, 111, 0.5);
+}
+
+.logo {
+  display: flex;
 }
 
 .logo-img {
   display: flex;
-  margin: 25px 6px 34px 120px;
+  margin: 26px 6px 34px 0;
   width: 30px;
   height: 30px;
 }
@@ -35,8 +51,7 @@ body {
 .logo-text {
   display: flex;
   align-items: center;
-  margin-right: 153px;
-  font-family: Magra;
+  font-family: Magra, sans-serif;
   font-size: 32px;
   font-weight: 600;
   color: white;
@@ -50,7 +65,7 @@ body {
 .nav-list {
   display: flex;
   list-style: none;
-  font-family: RedHatText;
+  font-family: RedHatText, sans-serif;
   font-weight: 500;
   font-size: 16px;
   gap: 42px;
@@ -79,16 +94,79 @@ body {
   width: 103px;
   height: 41px;
   background-color: #0D606F;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 3px rgba(13, 96, 111, 0.16);
+  border: 0;
   border-radius: 10px;
-  font-family: RedHatText;
+  font-family: RedHatText, sans-serif;
   font-weight: 500;
   font-size: 16px;
   color: white;
 }
 
 .main {
-  background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
+
+.preview {
+  display: flex;
+  height: 765px;
+  background-image: url(assets/img/garrett-parker-DlkF4-dbCOU-unsplash\ 1.svg);
+  background-repeat: no-repeat;
+  font-family: Aleo, serif;
+  font-weight: 700;
+  color: white;
+}
+
+.search-block {
+  display: block;
+  
+  margin: 122px 0 0 120px;
+}
+
+.preview-title {
+  font-size: 80px;
+}
+
+.preview-description {
+  font-style: italic;
+  font-size: 20px;
+}
+
+.search-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.search-text {
+  width: 560px;
+  font-style: italic;
+  font-size: 24px;
+  color: #F2785C;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13.5px 32.5px;
+  background-color: #0D606F;
+  border: 0;
+  border-radius: 10px;
+  font-family: RedHatText, sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: white;
+}
+
+
 
 .footer {
   background-color: lightseagreen;
