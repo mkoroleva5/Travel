@@ -177,6 +177,27 @@ body {
   color: white;
 }
 
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.steps-title {
+  display: flex;
+  justify-content: center;
+}
+
+.steps-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
 .footer {
