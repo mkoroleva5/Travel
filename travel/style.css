@@ -146,7 +146,8 @@ body {
   margin: 0 45px 0 23px;
 }
 
-.search-button {
+.search-button,
+.destinations-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,13 +163,7 @@ body {
   color: white;
 }
 
-.steps {
-  display: flex;
-  flex-direction: column;
-  margin: 46px 30px;
-}
-
-.steps-title {
+.section-title {
   display: flex;
   justify-content: center;
   font-family: 'Red Hat Text', sans-serif;
@@ -177,10 +172,16 @@ body {
   color:#F2785C;  
 }
 
+.steps {
+  display: flex;
+  flex-direction: column;
+  margin: 46px 130px 42px 130px;
+}
+
 .steps-block {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   font-family: Aleo, serif;
   font-weight: 400;
   font-size: 20px;
@@ -192,23 +193,20 @@ body {
   display: block;
   width: 100px;
   height: 100px;
+  margin-bottom: 10px;
   background-color: #F2785C;
   border-radius: 16px;
 }
 
 .bicycle,
 .plane {
-  height: 45px;
   padding-top: 28px;
   padding-bottom: 27px;
 }
 
 .calendar {
-  width: 52px;
-  height: 52px;
   padding: 24px;
 }
-
 
 
 .step {
@@ -217,7 +215,74 @@ body {
   align-items: center;
 }
 
+.destinations-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  overflow-x: hidden;
+}
 
+.destination-image {
+  border-radius: 16px;
+  margin: -5px -10px;
+}
+
+.destination-element {
+  position: relative;
+}
+
+.destination-name {
+  position: absolute;
+  bottom: 39px;
+  left: 6px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: white;
+}
+
+.dots-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.dot {  
+  background-color: rgb(242, 120, 92, 0.5);
+  border: 0px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.center-dot {
+  background-color: rgb(242, 120, 92);
+}
+
+.dot:hover {
+  cursor: pointer;
+  background-color: rgb(242, 120, 92);
+}
+
+.arrow-image {
+  margin-right: 12px;
+}
+
+.destinations-button {
+  position: absolute;
+  width: 228px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.destinations-button p {
+  margin: 0 auto;
+}
 .footer {
   background-color: lightseagreen;
 }
