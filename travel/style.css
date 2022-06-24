@@ -6,7 +6,6 @@ body {
   max-width: 1440px;
   margin: 0 auto;
   min-height: 100vh;
-  box-sizing: border-box;
 }
 
 .header {
@@ -15,10 +14,16 @@ body {
   position: absolute;
   width: 1440px;
   height: 90px;
-  z-index: 2;
+  z-index: 1;
   padding: 0 120px;
   background-color: rgb(242, 120, 92, 0.7);
   box-shadow: 0 4px 4px rgb(13, 96, 111, 0.5);
+}
+
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
 .logo {
@@ -346,7 +351,12 @@ button:hover {
 }
 
 .footer {
-  height: 90px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 64px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: white;
 }
-
-
