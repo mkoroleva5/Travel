@@ -169,6 +169,7 @@ body {
   font-family: 'Red Hat Text', sans-serif;
   font-weight: 500;
   font-size: 40px;
+  text-transform: uppercase;
   color:#F2785C;  
 }
 
@@ -207,7 +208,6 @@ body {
 .calendar {
   padding: 24px;
 }
-
 
 .step {
   display: flex;
@@ -253,7 +253,6 @@ body {
 
 .dot {  
   background-color: rgb(242, 120, 92, 0.5);
-  border: 0px;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -283,6 +282,51 @@ body {
 .destinations-button p {
   margin: 0 auto;
 }
-.footer {
-  background-color: lightseagreen;
+
+.stories {
+  margin-top: 107px;
+}
+
+.stories-block {
+  display: flex;
+  flex-direction: column;
+  background-image: url(assets/img/Rectangle 27.jpg);
+  background-repeat: no-repeat;
+  color: #0D606F;
+  padding: 46px 120px 10px 120px;
+}
+
+.story {
+  background-color:rgb(255, 255, 255, 0.5);
+
+}
+
+.story-image {
+  float: left;
+  margin-right: 40px;
+  margin-bottom: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 4px rgb(13, 96, 111);
+}
+
+.story h3 {
+  font-family: Aleo, serif;
+  font-weight: 400;
+  font-size: 35px;
+  margin: 0;
+}
+
+.story p {
+  font-family: Aleo, serif;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 0px;
+}
+
+.story a {
+  font-family: Aleo, serif;
+  font-weight: 700;
+  font-size: 20px;
+  color:#0d606f;
 }
