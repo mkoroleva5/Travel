@@ -64,12 +64,12 @@ body {
 
 .nav-link {
   text-decoration: none;
-  transition: 0.3s;
   color: white;
 }
 
 .nav-link:hover {
   color: #0D606F;
+  transition: 0.3s;
 }
 
 .header-button {
@@ -93,6 +93,11 @@ body {
   font-weight: 500;
   font-size: 16px;
   color: white;
+}
+
+.header-button:hover {
+  padding-bottom: 5px;
+  transition: 0.3s;
 }
 
 .main {
@@ -275,6 +280,7 @@ body {
 .dot:hover {
   cursor: pointer;
   background-color: rgb(242, 120, 92);
+  transition: 0.3s;
 }
 
 .arrow-image {
@@ -306,7 +312,6 @@ body {
   color: #0D606F;
   padding: 40px 120px 10px 120px;
   background-color:rgb(255, 255, 255, 0.7);
-
 }
 
 .story-image {
@@ -347,6 +352,7 @@ body {
 button:hover {
   cursor: pointer;
   box-shadow: 0 4px 4px rgb(13, 96, 111, 0.5);
+  transition: 0.3s;
 }
 
 .footer-bg-section {
@@ -374,4 +380,9 @@ button:hover {
   margin: 0 -45px;
   padding-top: 3px;
   list-style: none;
+}
+
+.social-link:hover {
+  padding-bottom: 5px;
+  transition: 0.3s;
 }
