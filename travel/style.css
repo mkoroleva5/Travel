@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .header {
   display: flex;
   justify-content: space-around;
@@ -99,7 +103,7 @@ body {
 .preview {
   display: flex;
   height: 765px;
-  background-image: url(assets/img/garrett-parker-DlkF4-dbCOU-unsplash\ 1.jpg);
+  background-image: url(assets/img/garrett-parker-DlkF4-dbCOU-unsplash-1.jpg);
   background-repeat: no-repeat;
   color: white;
 }
@@ -291,7 +295,7 @@ body {
   margin: 0 auto;
 }
 
-.section-title.travel {
+.section-title.stories {
   margin-top: 80px;
   margin-bottom: 40px;
 }
@@ -346,7 +350,7 @@ button:hover {
 }
 
 .footer-bg-section {
-  background-image: url(assets/img/Rectangle\ 27.jpg);
+  background-image: url(assets/img/Rectangle_27.jpg);
   background-repeat: no-repeat;
 }
 
