@@ -411,7 +411,7 @@ button:hover {
   align-items: center;
   gap: 20px;
   list-style: none;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .footer-rights {
@@ -420,7 +420,7 @@ button:hover {
 }
 
 .social-link:hover {
-  padding-bottom: 5px;
+  margin-bottom: 5px;
   transition: 0.3s;
 }
 
