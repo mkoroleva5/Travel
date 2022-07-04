@@ -28,9 +28,8 @@ if (window.innerWidth < 768) {
 }
 
 document.addEventListener('click', (e) => {
-    const clickA = e.composedPath().includes(menuActive);
-    const clickB = e.composedPath().includes(menuItem);
-    if ( !clickA && !clickB) {
+    const click = e.composedPath().includes(menuActive) || e.composedPath().includes(menuItem);
+    if ( !click ) {
         menuActive.classList.remove('nav-active');
         dark.style.display = 'none';
     }

@@ -601,7 +601,7 @@ button:hover {
     background: linear-gradient(180deg, #0D606F 0%, rgba(13, 96, 111, 0) 25.1%), url(assets/img/garrett-parker-DlkF4-dbCOU-unsplash-2.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
     height: 252px;
   }
 
@@ -649,6 +649,8 @@ button:hover {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    padding: 0 5px;
+    margin-top: 10px;
   }
 
   .step-icon {
@@ -657,7 +659,7 @@ button:hover {
   }
 
   .calendar-block {
-    padding: 0;
+    padding-left: 25px;
   }
 
   .bicycle,
@@ -669,7 +671,29 @@ button:hover {
     padding: 20px 15px;
   }
 
+  .bicycle-block {
+    align-items: flex-start;
+  }
+
+  .plane-block {
+    align-items: flex-end;
+  }
+
+  .bicycle-name {
+    text-align: left;
+  }
+
+  .calendar-name {
+    text-align: center;
+    width: 150px;
+  }
+
+  .plane-name {
+    text-align: right;
+  }
+
   .destination-title {
+    margin-top: 10px;
     margin-bottom: 20px;
   }
 
@@ -813,6 +837,4 @@ button:hover {
   .footer {
     margin: 0 auto;
   }
-
-
 }
