@@ -6,11 +6,22 @@ console.log('1. Вёрстка валидная +10\n2. Вёрстка сема�
     const menuItem = document.querySelector('.menu');
     const menuActive = document.querySelector('.nav');
     const menuClose = document.querySelector('.close-button');
+    const menuLinks = document.querySelectorAll('.nav-link');
+    const dark = document.querySelector('.dark');
     menuItem.addEventListener('click', () => {
         menuActive.classList.add('nav-active');
+        dark.style.display = 'block';
     })
     menuClose.addEventListener('click', () => {
         menuActive.classList.remove('nav-active');
+        dark.style.display = 'none';
     })
-    
+    if (window.innerWidth < 768) {
+        for (let i = 0; i < menuLinks.length; i++) {
+            menuLinks[i].addEventListener('click', () => {
+                menuActive.classList.remove('nav-active');
+                dark.style.display = 'none';
+            });
+        }
+    }
 }
