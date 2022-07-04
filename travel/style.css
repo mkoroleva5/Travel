@@ -70,7 +70,8 @@ body {
 
 .nav-link.mobile,
 .close-button,
-.nav-link-mobile {
+.nav-link-mobile,
+.arrows {
   display: none;
 }
 
@@ -703,6 +704,7 @@ button:hover {
 
   .destinations-block {
     justify-content: flex-start;
+    position: relative;
   }
 
   .destinations-button {
@@ -727,6 +729,61 @@ button:hover {
   .destination-image-mobile {
     display: block;
     border-radius: 16px;
+  }
+
+  .arrows {
+    display: block;
+  }
+
+  .arrow-left {
+    position: absolute;
+    left: 25px;
+    top: 48%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+  .arrow-right {
+    position: absolute;
+    right: 25px;
+    top: 48%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .arrow-line {
+    display: block;
+    width: 18px;
+    height: 4px;
+    background-color:rgba(242, 120, 92);
+    border-radius: 16px;
+    position: absolute;
+    top: 50%;
+  }
+
+  .arrow-left > .arrow-line:nth-child(1) {
+    transform: translateY(180%) rotate(45deg);
+  }
+
+  .arrow-left > .arrow-line:nth-child(2) {
+    transform: translateY(-100%) rotate(-45deg);
+  }
+
+  .arrow-right > .arrow-line:nth-child(1) {
+    transform: translateY(180%) rotate(-45deg);
+  }
+
+  .arrow-right > .arrow-line:nth-child(2) {
+    transform: translateY(-100%) rotate(45deg);
+  }
+
+  .arrows:hover {
+    opacity: 1;
   }
 
   .dot {
