@@ -560,7 +560,8 @@ button:hover {
   }
 
   .calendar-block {
-    padding-left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .stories-block {
@@ -661,6 +662,7 @@ button:hover {
 
   .calendar-block {
     padding-left: 25px;
+    padding-right: 0;
   }
 
   .bicycle,
@@ -893,5 +895,21 @@ button:hover {
 
   .footer {
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 320px) {
+  .step {
+    width: 20%;
+    height: 20%;
+  }
+
+  .calendar-block {
+    padding: 0;
+  }
+
+  .calendar-name {
+    word-wrap: normal;
+    max-width: 130%;
   }
 }
