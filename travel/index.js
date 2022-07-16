@@ -34,3 +34,91 @@ document.addEventListener('click', (e) => {
         dark.style.display = 'none';
     }
 });
+
+// Login Page
+
+const popup = document.querySelector('.pop-up');
+const loginButton = document.getElementById('login');
+const accountButton = document.querySelector('.account');
+const popUpDark = document.querySelector('.pop-up-dark');
+const popupContent = document.querySelector('.pop-up-content');
+
+loginButton.addEventListener('click', () => {
+    popup.classList.add('login-active');
+    popUpDark.style.display = 'block';
+});
+
+popup.addEventListener('click', (event) => {
+    const click = event.composedPath().includes(popupContent);
+    if ( !click ) {
+        popup.classList.remove('login-active');
+        popUpDark.style.display = 'none';
+    }
+});
+
+accountButton.addEventListener('click', () => {
+    popup.classList.add('login-active');
+    popUpDark.style.display = 'block';
+    menuActive.classList.remove('nav-active');
+});
+
+// Login Alert
+
+const signInButton = document.querySelector('.sign-in-button');
+const form = document.querySelector('.pop-up-form');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+
+signInButton.addEventListener('click', () => {
+    alert('Ваш e-mail: ' + form.email.value + '\n' + 'Ваш пароль: ' + form.password.value);
+});    
+
+// Register switch
+
+const registerButton = document.querySelector('.register-button');
+const socialButtons = document.querySelector('.pop-up-social-buttons');
+const separator = document.querySelector('.pop-up-separator.first');
+const forgotPassword = document.querySelector('.forgot-password');
+const popUpTitle = document.querySelector('.pop-up-title-p');
+const registerText = document.querySelector('.register-p');
+const signUpClass = document.querySelector('.register-text');
+
+function switchRegister (socialButtons) {
+    socialButtons.classList.toggle('hide')
+}
+
+registerButton.addEventListener('click', () => {
+    socialButtons.classList.toggle('hide');
+    separator.classList.toggle('hide');
+    forgotPassword.classList.toggle('hide');
+    popupContent.classList.toggle('sign-up-height');
+
+    popUpTitle.classList.toggle('register-text');
+    registerButton.classList.toggle('register-text');
+    registerText.classList.toggle('register-text');
+    signInButton.classList.toggle('register-text');
+
+// Доделать смену текста!!!
+    if (!popUpTitle.classList.contains(signUpClass)) {
+        popUpTitle.innerHTML = 'Create account';
+    }
+    if (!registerButton.classList.contains(signUpClass)) {
+        registerButton.innerHTML = 'Log in';
+    }
+    if (!registerText.classList.contains(signUpClass)) {
+        registerText.innerHTML = 'Already have an account?';
+    }
+    if (!signInButton.classList.contains(signUpClass)) {
+        signInButton.innerHTML = 'Sign Up';
+    }
+});
+//    popUpTitle.innerHTML = 'Create account';
+//    registerButton.innerHTML = 'Log in';
+//    registerText.innerHTML = 'Already have an account?';
+//    signInButton.innerHTML = 'Sign Up';
+
+
+
+
+
+

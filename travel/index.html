@@ -9,10 +9,11 @@
     <link rel="icon" href="assets/img/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Magra:wght@400;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div class="dark"></div>
+    <div class="pop-up-dark"></div>
     <header class="header">
       <div class="logo">
         <img class="logo-img" src="assets/img/Vector.svg" alt="Travel Portal Logo">
@@ -33,7 +34,7 @@
             <a href="#stories" class="nav-link">Travel Stories</a>
           </li>
           <li class="nav-link-mobile">
-            <a href="#login" class="nav-link mobile">Account</a>
+            <a href="#login" class="nav-link mobile account">Account</a>
           </li>
           <li class="nav-link-mobile">
             <a href="#footer" class="nav-link mobile">Social Media</a>
@@ -54,6 +55,31 @@
       </div>
     </header>
     <main class="main">
+      <div class="pop-up">
+        <div class="pop-up-content">
+          <div class="pop-up-title">
+            <p class="pop-up-title-p">Log in to your account</p>
+          </div>
+          <form class="pop-up-social-buttons">
+            <button class="pop-up-button social-media"><img src="assets/Facebook Logo.svg" alt="Facebook">Sign In with Facebook</button>
+            <button class="pop-up-button social-media"><img src="assets/Google Logo.svg" alt="Google">Sign In with Google</button>
+          </form>
+          <div class="pop-up-separator first">or</div>
+          <form class="pop-up-form">
+            <label for="email">E-mail</label>
+            <input type="text" class="pop-up-input" id="email">
+            <label for="password">Password</label>
+            <input type="password" class="pop-up-input" id="password">
+            <button class="sign-in-button">Sign In</button>
+            <a href="#" class="forgot-password">Forgot Your Password?</a>
+          </form>
+          <div class="pop-up-separator line"></div>
+          <div class="register">
+            <p class="register-p">Don't have an account?</p>
+            <a href="#" class="register-button">Register</a>
+          </div>
+        </div>
+      </div>
       <section class="preview" id="preview">
         <div class="search-block">
           <h1 class="preview-title">Explore the beauty of the World</h1>
