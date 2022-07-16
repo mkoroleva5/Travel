@@ -70,7 +70,15 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 
 signInButton.addEventListener('click', () => {
-    alert('Ваш e-mail: ' + form.email.value + '\n' + 'Ваш пароль: ' + form.password.value);
+    if (form.email.value == 0 && form.password.value == 0) {
+        alert('Вы ничего не ввели :(');
+    } else if (form.email.value == 0) {
+        alert('Вы не ввели e-mail :(');
+    } else if (form.password.value == 0) {
+        alert('Вы не ввели пароль :(');
+    } else {
+        alert('Ваш e-mail: ' + form.email.value + '\n' + 'Ваш пароль: ' + form.password.value);
+    }
 });    
 
 // Register switch
@@ -81,7 +89,6 @@ const separator = document.querySelector('.pop-up-separator.first');
 const forgotPassword = document.querySelector('.forgot-password');
 const popUpTitle = document.querySelector('.pop-up-title-p');
 const registerText = document.querySelector('.register-p');
-const signUpClass = document.querySelector('.register-text');
 
 function switchRegister (socialButtons) {
     socialButtons.classList.toggle('hide')
@@ -93,31 +100,11 @@ registerButton.addEventListener('click', () => {
     forgotPassword.classList.toggle('hide');
     popupContent.classList.toggle('sign-up-height');
 
-    popUpTitle.classList.toggle('register-text');
-    registerButton.classList.toggle('register-text');
-    registerText.classList.toggle('register-text');
-    signInButton.classList.toggle('register-text');
-
-// Доделать смену текста!!!
-    if (!popUpTitle.classList.contains(signUpClass)) {
-        popUpTitle.innerHTML = 'Create account';
-    }
-    if (!registerButton.classList.contains(signUpClass)) {
-        registerButton.innerHTML = 'Log in';
-    }
-    if (!registerText.classList.contains(signUpClass)) {
-        registerText.innerHTML = 'Already have an account?';
-    }
-    if (!signInButton.classList.contains(signUpClass)) {
-        signInButton.innerHTML = 'Sign Up';
-    }
+    popUpTitle.innerHTML === 'Log in to your account' ? popUpTitle.innerHTML = 'Create account' : popUpTitle.innerHTML = 'Log in to your account';
+    registerButton.innerHTML === 'Register' ? registerButton.innerHTML = 'Log in' : registerButton.innerHTML = 'Register';
+    registerText.innerHTML === 'Don\'t have an account?' ? registerText.innerHTML = 'Already have an account?' : registerText.innerHTML = 'Don\'t have an account?';
+    signInButton.innerHTML === 'Sign In' ? signInButton.innerHTML = 'Sign Up' : signInButton.innerHTML = 'Sign In';
 });
-//    popUpTitle.innerHTML = 'Create account';
-//    registerButton.innerHTML = 'Log in';
-//    registerText.innerHTML = 'Already have an account?';
-//    signInButton.innerHTML = 'Sign Up';
-
-
 
 
 
