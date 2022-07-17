@@ -70,8 +70,7 @@ body {
 
 .nav-link.mobile,
 .close-button,
-.nav-link-mobile,
-.arrows {
+.nav-link-mobile {
   display: none;
 }
 
@@ -255,10 +254,56 @@ body {
 .destinations-block {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
   justify-content: center;
-  overflow-x: hidden;
+  /*overflow: hidden;*/
 }
+
+.slider-left,
+.slider-center,
+.slider-right {
+  display: flex;
+  flex-direction: row;
+  margin: 0 30px;
+  gap: 60px;
+}
+
+.slider {
+  display: flex;
+  flex: row;
+  position: relative;
+  left: 0px;
+}
+
+@keyframes move-right {
+  from {left: 0px;}
+  to {left: -860px;}
+}
+
+.transition-right {
+  animation-name: move-right;
+  animation-duration: 3s;
+}
+
+@keyframes move-left {
+  from {left: 0px;}
+  to {left: 860px;}
+}
+
+.transition-left {
+  animation-name: move-left;
+  animation-duration: 3s;
+}
+
+/* вот это в конце убрать!!!!!!!!!!!!!!!!!!!!!*/
+.slider-left {
+  background-color: rgb(146, 235, 94);
+ }
+.slider-center {
+ background-color: rgb(255, 0, 68);
+}
+.slider-right {
+  background-color: rgb(0, 140, 255);
+ }
 
 .destination-title {
   margin-bottom: 30px;
@@ -266,7 +311,7 @@ body {
 
 .destination-element{
   display: block;
-  margin: 16px 30px;
+  margin: 16px 0;
 }
 
 .destination-image-mobile {
@@ -289,6 +334,37 @@ body {
   font-weight: 500;
   font-size: 32px;
   color: white;
+}
+
+.arrows {
+  display: flex;
+  position: relative;
+}
+
+.arrow-left {
+  position: absolute;
+  transform: translate(-107.5%, 2%);
+  width: 800px;
+  height: 800px;
+  cursor: pointer;
+}
+
+.arrow-right {
+  position: absolute;
+  transform: translate(107.5%, 2%);
+  width: 800px;
+  height: 800px;
+  cursor: pointer;
+}
+
+.arrow-line {
+  display: block;
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background-color: transparent;
+  border-radius: 16px;
+
 }
 
 .dots-block {
@@ -354,7 +430,6 @@ body {
 
 .story-image {
   float: left;
-  width: 62%;
   margin-right: 40px;
   margin-bottom: 30px;
   border-radius: 16px;
@@ -452,8 +527,8 @@ button:hover {
   padding-top: 45px;
   font-family: Aleo, serif;
   color: rgba(13, 96, 111, 1);
-  transform: translateY(-110%);
-  transition: 2s;
+  transform: translateY(-1500px);
+  transition: all 1.5s ease;;
 }
 
 .login-active {
@@ -910,8 +985,12 @@ button:hover {
     border-radius: 16px;
   }
 
-  .arrows {
-    display: block;
+  .slider-left,
+  .slider-center,
+  .slider-right {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
   }
 
   .arrow-left {
@@ -961,8 +1040,8 @@ button:hover {
     transform: translateY(-100%) rotate(45deg);
   }
 
-  .arrows:hover {
-    opacity: 1;
+  .slider {
+    justify-content: flex-start;
   }
 
   .dot {

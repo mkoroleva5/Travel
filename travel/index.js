@@ -90,10 +90,6 @@ const forgotPassword = document.querySelector('.forgot-password');
 const popUpTitle = document.querySelector('.pop-up-title-p');
 const registerText = document.querySelector('.register-p');
 
-function switchRegister (socialButtons) {
-    socialButtons.classList.toggle('hide')
-}
-
 registerButton.addEventListener('click', () => {
     socialButtons.classList.toggle('hide');
     separator.classList.toggle('hide');
@@ -105,6 +101,87 @@ registerButton.addEventListener('click', () => {
     registerText.innerHTML === 'Don\'t have an account?' ? registerText.innerHTML = 'Already have an account?' : registerText.innerHTML = 'Don\'t have an account?';
     signInButton.innerHTML === 'Sign In' ? signInButton.innerHTML = 'Sign Up' : signInButton.innerHTML = 'Sign In';
 });
+
+// Slider
+
+const slider = document.querySelector('.slider');
+const buttonLeft = document.querySelector('.arrow-left');
+const buttonRight = document.querySelector('.arrow-right');
+
+const itemLeft = document.querySelector('.slider-left');
+const itemRight = document.querySelector('.slider-right');
+const image1 = document.querySelector('.left-image');
+const image2 = document.querySelector('.center-image');
+const image3 = document.querySelector('.right-image');
+
+const moveLeft = () => {
+    slider.classList.add('transition-left');
+    buttonLeft.removeEventListener('click', moveLeft);
+    buttonRight.removeEventListener('click', moveRight);
+};
+
+const moveRight = () => {
+    slider.classList.add('transition-right');
+    buttonLeft.removeEventListener('click', moveLeft);
+    buttonRight.removeEventListener('click', moveRight);
+};
+
+buttonLeft.addEventListener('click', moveLeft);
+buttonRight.addEventListener('click', moveRight);
+
+slider.addEventListener('animationend', (event) => {
+
+    let itemChanged;
+    if (event.animationName === 'move-left') {
+        slider.classList.remove('transition-left');
+        itemChanged = itemLeft;
+
+        itemChanged.innerHTML = '';
+        itemChanged.appendChild(image3);
+        itemChanged.appendChild(image1);
+        itemChanged.appendChild(image2);   
+
+        itemRight.innerHTML = document.querySelector('.slider-center').innerHTML;
+        document.querySelector('.slider-center').innerHTML = itemLeft.innerHTML;
+    } else {
+        slider.classList.remove('transition-right');
+        itemChanged = itemRight;
+
+        itemChanged.innerHTML = '';
+        itemChanged.appendChild(image2);
+        itemChanged.appendChild(image3);
+        itemChanged.appendChild(image1);   
+
+        itemLeft.innerHTML = document.querySelector('.slider-center').innerHTML;
+        document.querySelector('.slider-center').innerHTML = itemRight.innerHTML;
+    }
+
+   
+
+ /*   for (let i = 0; i < 3; i++) {
+        if(itemChanged.lastChild === image1) {
+            itemChanged.innerHTML = '';
+          itemChanged.appendChild(image2);
+          itemChanged.appendChild(image3);
+          itemChanged.appendChild(image1);  
+        } else if(itemChanged.lastChild === image2) {
+            itemChanged.innerHTML = '';
+            itemChanged.appendChild(image3); 
+            itemChanged.appendChild(image1);
+            itemChanged.appendChild(image2); 
+        } else if(itemChanged.lastChild === image3) {
+            itemChanged.innerHTML = '';
+            itemChanged.appendChild(image1);  
+            itemChanged.appendChild(image2);
+            itemChanged.appendChild(image3);
+        } 
+    }*/
+
+    buttonLeft.addEventListener('click', moveLeft);
+    buttonRight.addEventListener('click', moveRight);
+});
+
+
 
 
 
