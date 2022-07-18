@@ -110,6 +110,7 @@ const buttonRight = document.querySelector('.arrow-right');
 
 const itemLeft = document.querySelector('.slider-left');
 const itemRight = document.querySelector('.slider-right');
+const itemCenter = document.querySelector('.slider-center');
 const image1 = document.querySelector('.left-image');
 const image2 = document.querySelector('.center-image');
 const image3 = document.querySelector('.right-image');
@@ -131,32 +132,70 @@ buttonRight.addEventListener('click', moveRight);
 
 slider.addEventListener('animationend', (event) => {
 
-    let itemChanged;
     if (event.animationName === 'move-left') {
         slider.classList.remove('transition-left');
-        itemChanged = itemLeft;
 
-        itemChanged.innerHTML = '';
-        itemChanged.appendChild(image3);
-        itemChanged.appendChild(image1);
-        itemChanged.appendChild(image2);   
-
-        itemRight.innerHTML = document.querySelector('.slider-center').innerHTML;
-        document.querySelector('.slider-center').innerHTML = itemLeft.innerHTML;
-    } else {
+        if (itemLeft.lastChild === image3) {
+            itemLeft.innerHTML = '';
+            itemLeft.appendChild(image3);
+            itemLeft.appendChild(image1);
+            itemLeft.appendChild(image2); 
+            itemRight.innerHTML = itemCenter.innerHTML;
+            itemCenter.innerHTML = itemLeft.innerHTML;
+        } else if (itemLeft.lastChild === image2) {
+            itemLeft.innerHTML = '';
+            itemLeft.appendChild(image2);
+            itemLeft.appendChild(image3);
+            itemLeft.appendChild(image1); 
+            itemRight.innerHTML = itemCenter.innerHTML;
+            itemCenter.innerHTML = itemLeft.innerHTML;
+        } else if (itemLeft.lastChild === image1) {
+            itemLeft.innerHTML = '';
+            itemLeft.appendChild(image1);
+            itemLeft.appendChild(image2);
+            itemLeft.appendChild(image3); 
+            itemRight.innerHTML = itemCenter.innerHTML;
+            itemCenter.innerHTML = itemLeft.innerHTML;
+        }
+        
+    } else if (event.animationName === 'move-right') {
         slider.classList.remove('transition-right');
-        itemChanged = itemRight;
 
-        itemChanged.innerHTML = '';
-        itemChanged.appendChild(image2);
-        itemChanged.appendChild(image3);
-        itemChanged.appendChild(image1);   
+        console.log(itemRight.lastChild);
 
-        itemLeft.innerHTML = document.querySelector('.slider-center').innerHTML;
-        document.querySelector('.slider-center').innerHTML = itemRight.innerHTML;
+        if (itemRight.lastChild === image3) {
+            itemRight.innerHTML = '';
+            itemRight.appendChild(image2);
+            itemRight.appendChild(image3);
+            itemRight.appendChild(image1);   
+
+            itemRight.innerHTML = itemLeft.innerHTML;
+            itemCenter.innerHTML = itemRight.innerHTML;
+
+            console.log(3)
+        } else if (itemRight.lastChild === image2) {
+            itemRight.innerHTML = '';
+            itemRight.appendChild(image3);
+            itemRight.appendChild(image1);
+            itemRight.appendChild(image2);   
+
+            itemRight.innerHTML = itemLeft.innerHTML;
+            itemCenter.innerHTML = itemRight.innerHTML;
+
+            console.log(2)
+        } else if (itemRight.lastChild === image1) {
+            itemLeft.innerHTML = '';
+            itemLeft.appendChild(image1);
+            itemLeft.appendChild(image2);
+            itemLeft.appendChild(image3); 
+
+            itemRight.innerHTML = itemLeft.innerHTML;
+            itemCenter.innerHTML = itemRight.innerHTML;
+
+            console.log(1)
+        }
     }
-
-   
+    
 
  /*   for (let i = 0; i < 3; i++) {
         if(itemChanged.lastChild === image1) {
