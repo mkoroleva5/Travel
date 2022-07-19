@@ -132,6 +132,9 @@ const moveRight = () => {
 
 buttonLeft.addEventListener('click', moveLeft);
 buttonRight.addEventListener('click', moveRight);
+dotLeft.addEventListener('click', moveLeft);
+dotRight.addEventListener('click', moveRight);
+
 
 slider.addEventListener('animationend', (event) => {
 

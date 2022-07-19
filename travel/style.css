@@ -281,7 +281,7 @@ body {
 
 .transition-right {
   animation-name: move-right;
-  animation-duration: 1s;
+  animation-duration: 2s;
 }
 
 @keyframes move-left {
@@ -291,7 +291,7 @@ body {
 
 .transition-left {
   animation-name: move-left;
-  animation-duration: 1s;
+  animation-duration: 2s;
 }
 
 .destination-title {
@@ -839,6 +839,35 @@ button:hover {
     margin-left: 5px;
   }
 
+  .pop-up-content {
+    height: 600px;
+  }
+
+  .sign-up-height {
+    height: 400px;
+  }
+
+  .pop-up-title {
+    font-size: 24px;
+  }
+
+  .pop-up-title-p {
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+
+  .pop-up-button.social-media {
+    font-size: 16px;
+  }
+
+  .pop-up-separator {
+    margin: 0;
+  }
+
+  .pop-up-separator.line {
+    margin: 10px;
+  }
+
   .preview {
     display: flex;
     background: linear-gradient(180deg, #0D606F 0%, rgba(13, 96, 111, 0) 25.1%), url(assets/img/garrett-parker-DlkF4-dbCOU-unsplash-2.jpg);
@@ -946,8 +975,17 @@ button:hover {
   }
 
   .destinations-block {
-    justify-content: flex-start;
     position: relative;
+  }
+
+  @keyframes move-right {
+    from {left: 0px;}
+    to {left: -395px;}
+  }
+  
+  @keyframes move-left {
+    from {left: 0px;}
+    to {left: 395px;}
   }
 
   .destinations-button {
@@ -1027,10 +1065,6 @@ button:hover {
 
   .arrow-right > .arrow-line:nth-child(2) {
     transform: translateY(-100%) rotate(45deg);
-  }
-
-  .slider {
-    justify-content: flex-start;
   }
 
   .dot {
