@@ -255,7 +255,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /*overflow: hidden;*/
+  overflow: hidden;
 }
 
 .slider-left,
@@ -281,7 +281,7 @@ body {
 
 .transition-right {
   animation-name: move-right;
-  animation-duration: 3s;
+  animation-duration: 1s;
 }
 
 @keyframes move-left {
@@ -291,19 +291,8 @@ body {
 
 .transition-left {
   animation-name: move-left;
-  animation-duration: 3s;
+  animation-duration: 1s;
 }
-
-/* вот это в конце убрать!!!!!!!!!!!!!!!!!!!!!*/
-.slider-left {
-  background-color: rgb(146, 235, 94);
- }
-.slider-center {
- background-color: rgb(255, 0, 68);
-}
-.slider-right {
-  background-color: rgb(0, 140, 255);
- }
 
 .destination-title {
   margin-bottom: 30px;
