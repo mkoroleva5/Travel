@@ -366,19 +366,20 @@ body {
 }
 
 .dot {  
-  background-color: rgba(242, 120, 92, 0.5);
+  background-color: rgba(242, 120, 92);
   border-radius: 50%;
   width: 20px;
   height: 20px;
 }
 
-.center-dot {
-  background-color: rgb(242, 120, 92);
+.left-dot,
+.right-dot {
+  opacity: 0.5;
 }
 
 .dot:hover {
   cursor: pointer;
-  background-color: rgb(242, 120, 92);
+  opacity: 1;
   transition: 0.3s;
 }
 
@@ -1077,14 +1078,6 @@ button:hover {
     position: relative;
     bottom: 20px;
     margin: 0 auto;
-  }
-
-  .left-dot {
-    background-color: rgba(242, 120, 92);
-  }
-
-  .center-dot {
-    background-color: rgba(242, 120, 92, 0.5);
   }
 
   .arrow-image {

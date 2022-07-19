@@ -109,6 +109,7 @@ const buttonLeft = document.querySelector('.arrow-left');
 const buttonRight = document.querySelector('.arrow-right');
 const dotLeft = document.querySelector('.left-dot');
 const dotRight = document.querySelector('.right-dot');
+const dotCenter = document.querySelector('.center-dot');
 
 const itemLeft = document.querySelector('.slider-left');
 const itemCenter = document.querySelector('.slider-center');
@@ -122,19 +123,38 @@ const moveLeft = () => {
     slider.classList.add('transition-left');
     buttonLeft.removeEventListener('click', moveLeft);
     buttonRight.removeEventListener('click', moveRight);
-};
+    dotLeft.removeEventListener('click', leftImageEnabled);
+    dotCenter.removeEventListener('click', centerImageEnabled);
+    dotRight.removeEventListener('click', rightImageEnabled);};
 
 const moveRight = () => {
     slider.classList.add('transition-right');
     buttonLeft.removeEventListener('click', moveLeft);
     buttonRight.removeEventListener('click', moveRight);
+    dotLeft.removeEventListener('click', leftImageEnabled);
+    dotCenter.removeEventListener('click', centerImageEnabled);
+    dotRight.removeEventListener('click', rightImageEnabled);};
+
+const dotLeftEnabled = () => {
+    dotLeft.style.opacity = '1';
+    dotCenter.style.opacity = '0.5';
+    dotRight.style.opacity = '0.5';
+};
+
+const dotCenterEnabled = () => {
+    dotLeft.style.opacity = '0.5';
+    dotCenter.style.opacity = '1';
+    dotRight.style.opacity = '0.5';
+};
+
+const dotRightEnabled = () => {
+    dotLeft.style.opacity = '0.5';
+    dotCenter.style.opacity = '0.5';
+    dotRight.style.opacity = '1';
 };
 
 buttonLeft.addEventListener('click', moveLeft);
 buttonRight.addEventListener('click', moveRight);
-dotLeft.addEventListener('click', moveLeft);
-dotRight.addEventListener('click', moveRight);
-
 
 slider.addEventListener('animationend', (event) => {
 
@@ -148,6 +168,7 @@ slider.addEventListener('animationend', (event) => {
             itemLeft.appendChild(image2);
             itemRight.innerHTML = itemLeft.innerHTML;
             itemCenter.innerHTML = itemLeft.innerHTML;
+            dotLeftEnabled();
         } else if (itemLeft.lastElementChild === image2) {
             itemLeft.innerHTML = '';
             itemLeft.appendChild(image2);
@@ -155,6 +176,7 @@ slider.addEventListener('animationend', (event) => {
             itemLeft.appendChild(image1); 
             itemRight.innerHTML = itemLeft.innerHTML;
             itemCenter.innerHTML = itemLeft.innerHTML;
+            dotRightEnabled();
         } else if (itemLeft.lastElementChild === image1) {
             itemLeft.innerHTML = '';
             itemLeft.appendChild(image1);
@@ -162,6 +184,7 @@ slider.addEventListener('animationend', (event) => {
             itemLeft.appendChild(image3); 
             itemRight.innerHTML = itemLeft.innerHTML;
             itemCenter.innerHTML = itemLeft.innerHTML;
+            dotCenterEnabled();
         } 
 
     } else if (event.animationName === 'move-right') {
@@ -174,6 +197,7 @@ slider.addEventListener('animationend', (event) => {
             itemLeft.appendChild(image1);   
             itemRight.innerHTML = itemLeft.innerHTML;
             itemCenter.innerHTML = itemRight.innerHTML;
+            dotRightEnabled();
         } else if (itemLeft.lastElementChild === image2) {
             itemLeft.innerHTML = '';
             itemLeft.appendChild(image1);
@@ -181,6 +205,7 @@ slider.addEventListener('animationend', (event) => {
             itemLeft.appendChild(image3);   
             itemRight.innerHTML = itemLeft.innerHTML;
             itemCenter.innerHTML = itemRight.innerHTML;
+            dotCenterEnabled();
         } else if (itemLeft.lastElementChild === image1) {
             itemLeft.innerHTML = '';
             itemLeft.appendChild(image3);
@@ -188,13 +213,46 @@ slider.addEventListener('animationend', (event) => {
             itemLeft.appendChild(image2); 
             itemRight.innerHTML = itemLeft.innerHTML;
             itemCenter.innerHTML = itemRight.innerHTML;
+            dotLeftEnabled();
         }
     }
-
     buttonLeft.addEventListener('click', moveLeft);
     buttonRight.addEventListener('click', moveRight);
+    dotLeft.addEventListener('click', leftImageEnabled);
+    dotCenter.addEventListener('click', centerImageEnabled);
+    dotRight.addEventListener('click', rightImageEnabled);
 });
 
+const leftImageEnabled = () => {
+    if (itemLeft.lastElementChild === image3) {
+        moveLeft();
+        dotLeftEnabled();
+    } else if (itemLeft.lastElementChild === image1) {
+        moveRight();
+        dotLeftEnabled();
+    }
+};
 
+const centerImageEnabled = () => {
+    if (itemLeft.lastElementChild === image1) {
+        moveLeft();
+        dotCenterEnabled();
+    } else if (itemLeft.lastElementChild === image2) {
+        moveRight();
+        dotCenterEnabled();
+    }
+};
 
+const rightImageEnabled = () => {
+    if (itemLeft.lastElementChild === image2) {
+        moveLeft();
+        dotRightEnabled();
+    } else if (itemLeft.lastElementChild === image3) {
+        moveRight();
+        dotRightEnabled();
+    }
+};
 
+dotLeft.addEventListener('click', leftImageEnabled);
+dotCenter.addEventListener('click', centerImageEnabled);
+dotRight.addEventListener('click', rightImageEnabled);
