@@ -23,6 +23,7 @@ body {
   max-width: 1440px;
   margin: 0 auto;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .logo {
@@ -498,6 +499,7 @@ button:hover {
 .dark {
   display: none;
   width: 100%;
+  max-width: 1440px;
   height: 100%;
   position: fixed;
   z-index: 1;
@@ -528,6 +530,7 @@ button:hover {
 .pop-up-dark {
   display: none;
   width: 100%;
+  max-width: 1440px;
   height: 100%;
   position: fixed;
   z-index: 1;
