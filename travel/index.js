@@ -46,6 +46,14 @@ const popupContent = document.querySelector('.pop-up-content');
 loginButton.addEventListener('click', () => {
     popup.classList.add('login-active');
     popUpDark.style.display = 'block';
+    popUpTitle.innerHTML === 'Create account' ? popUpTitle.innerHTML = 'Log in to your account' : popUpTitle.innerHTML === 'Create account';
+    registerButton.innerHTML === 'Log in' ? registerButton.innerHTML = 'Register' : registerButton.innerHTML === 'Log in';
+    registerText.innerHTML === 'Already have an account?' ? registerText.innerHTML = 'Don\'t have an account?': registerText.innerHTML === 'Already have an account?';
+    signInButton.innerHTML === 'Sign Up' ? signInButton.innerHTML = 'Sign In' : signInButton.innerHTML === 'Sign Up';
+    socialButtons.classList.remove('hide');
+    separator.classList.remove('hide');
+    forgotPassword.classList.remove('hide');
+    popupContent.classList.remove('sign-up-height');
 });
 
 popup.addEventListener('click', (event) => {
