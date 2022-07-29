@@ -7,19 +7,21 @@ const currentDate = new Date().toLocaleDateString('en-US', options);
 
 function showDate() {
     date.textContent = currentDate;
+    setTimeout(showDate, 1000);
 }
 
 function showTime() {
     time.textContent = new Date().toLocaleTimeString();
+    setTimeout(showTime, 1000);
     showDate();
     showGreeting();
-    setTimeout(showTime, 1000);
 }
 
 // 2. Greeting
 
 const greeting = document.querySelector('.greeting');
 const name = document.querySelector('.name');
+const city = document.querySelector('.city');
 const hours = new Date().getHours();
 
 function getTimeOfDay() {
@@ -39,15 +41,20 @@ const greetingText = `Good ${timeOfDay}`;
 
 function showGreeting() {
     greeting.textContent = greetingText;
+    setTimeout(showGreeting, 1000);
 }
 
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
+    localStorage.setItem('city', city.value);
 }
 
 function getLocalStorage() {
     if(localStorage.getItem('name')) {
-      name.value = localStorage.getItem('name');
+        name.value = localStorage.getItem('name');
+    } 
+    if (localStorage.getItem('city')) {
+        city.value = localStorage.getItem('city');
     }
 }
 
@@ -107,3 +114,33 @@ function getSlideNext() {
 
 slidePrev.addEventListener('click', getSlidePrev);
 slideNext.addEventListener('click', getSlideNext);
+
+// Weather
+
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const wind = document.querySelector('.wind');
+const humidity = document.querySelector('.humidity');
+
+city.value = 'Minsk';
+
+async function getWeather() {  
+    getLocalStorage();
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json(); 
+
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${Math.round(data.main.temp)}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+    wind.textContent = 'Wind speed: ' + Math.round(data.wind.speed) + ' m/s';
+    humidity.textContent = 'Humidity: ' + data.main.humidity + '%';
+  }
+  getWeather();
+
+city.addEventListener('change', () => {
+    setLocalStorage();
+    getWeather();
+});
