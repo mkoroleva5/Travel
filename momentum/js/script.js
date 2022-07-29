@@ -115,7 +115,7 @@ function getSlideNext() {
 slidePrev.addEventListener('click', getSlidePrev);
 slideNext.addEventListener('click', getSlideNext);
 
-// Weather
+// 4. Weather
 
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
@@ -144,3 +144,29 @@ city.addEventListener('change', () => {
     setLocalStorage();
     getWeather();
 });
+
+// 5. Quotes
+
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
+const changeQuoteButton = document.querySelector('.change-quote')
+
+let random;
+function getRandom() {
+    min = Math.ceil(1);
+    max = Math.floor(1500);
+    return random = Math.floor(Math.random() * (max - min)) + min;
+} 
+
+async function getQuotes() {  
+    const quotes = 'data.json';
+    const res = await fetch(quotes);
+    const data = await res.json(); 
+
+    getRandom();
+    quote.textContent = `"` + data[random].text +`"`;
+    author.textContent = data[random].author;
+  }
+  getQuotes();
+
+  changeQuoteButton.addEventListener('click', getQuotes);
