@@ -124,6 +124,7 @@ slideNext.addEventListener('click', getSlideNext);
 
 // 4. Weather
 
+const weather = document.querySelector('.weather');
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
@@ -181,6 +182,7 @@ async function getQuotes() {
 
 // 6. Audio Player
 
+const player = document.querySelector('.player');
 const audio = document.querySelector('audio');
 const playPrevButton = document.querySelector('.play-prev');
 const playButton = document.querySelector('.play');
@@ -262,8 +264,65 @@ playList.forEach((el, i) => {
     li.textContent = playList[i].title;
 });
 
-const playItem = document.querySelectorAll('.play-item')
+const playItem = document.querySelectorAll('.play-item');
 
+// 8. Translation
+/*
+const greetingTranslation = {
+    en: '',
+    ru: ''
+}
+*/
 
+// 10. Settings
+
+const settingsIcon = document.querySelector('.settings-icon');
+const settings = document.querySelector('.settings')
+
+settingsIcon.addEventListener('click', () =>{
+    settingsIcon.classList.toggle('rotate');
+    settings.classList.toggle('visible');
+});
+
+const state = {
+    language: 'en',
+    photoSource: 'github',
+    blocks: ['time', 'date','greeting', 'quote', 'weather', 'audio', 'todolist']
+}
+
+const settingsItems = document.querySelectorAll('.settings-item');
+const checkboxIcon = document.querySelectorAll('.checkbox-icon');
+
+for (let i=0; i<settingsItems.length; i++) {
+    settingsItems[i].addEventListener('click', () => {
+        checkboxIcon[i].classList.toggle('open');
+        checkboxIcon[i].classList.toggle('closed');
+        if (i === 0) {
+            time.classList.toggle('invisible');
+            time.style.transition = '0.5s';
+        } else if (i === 1) {
+            date.classList.toggle('invisible');
+            date.style.transition = '0.5s';
+        } else if (i === 2) {
+            greeting.classList.toggle('invisible');
+            name.classList.toggle('invisible');
+            greeting.style.transition = '0.5s';
+            name.style.transition = '0.5s';
+        } else if (i === 3) {
+            quote.classList.toggle('invisible');
+            author.classList.toggle('invisible');
+            changeQuoteButton.classList.toggle('invisible');
+            quote.style.transition = '0.5s';
+            author.style.transition = '0.5s';
+            changeQuoteButton.style.transition = '0.5s';
+        } else if (i === 4) {
+            weather.classList.toggle('invisible');
+            weather.style.transition = '0.5s';
+        } else if (i === 5) {
+           player.classList.toggle('invisible');
+           player.style.transition = '0.5s';
+        }    
+    })
+}
 
 

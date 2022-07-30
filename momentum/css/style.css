@@ -71,10 +71,6 @@ body {
   color: #C5B358;
 }
 
-.active {
-  color: greenyellow;
-}
-
 .player-icon,
 .slider-icon,
 .change-quote {
@@ -268,6 +264,91 @@ body {
 
 .author {
   min-height: 20px;
+}
+
+.settings-icon {
+  width: 25px;
+  height: 25px;
+  opacity: 0.5;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  transform: rotate(0deg);
+  transition: 0.5s;
+}
+
+.settings-icon:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.rotate {
+  transform: rotate(45deg);
+  transition: 0.5s;
+}
+
+.settings {
+  display: flex;
+  position: absolute;
+  bottom: 70px;
+  left: 20px;
+  border-radius: 16px;
+  width: 40%;
+  height: 50%;
+  padding: 20px;
+  color: black;
+  background-color: white;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.visible {
+  opacity: 0.8;
+  transition: 0.5s;
+}
+
+.invisible {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.settings-checkbox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.settings-item {
+  flex-direction: row;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.settings-show h2 {
+  margin-bottom: 10px;
+}
+
+.checkbox-icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+  background-size: 30px;
+  background-repeat: no-repeat;
+}
+
+.open {
+  background-image: url('/momentum/assets/img/eye-open.png');
+  transition: 0.3s;
+}
+
+.closed {
+  background-image: url('/momentum/assets/img/eye-closed.png');
+  transition: 0.3s;
 }
 
 @media (max-width: 768px) {
