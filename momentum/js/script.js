@@ -204,10 +204,12 @@ playButton.addEventListener('click', () => {
         playAudio();
         isPlay = true;
         playButton.classList.add('pause');
+        playItem[playNum].classList.add('item-active');
     } else if (isPlay) {
         pauseAudio();
         isPlay = false;
         playButton.classList.remove('pause');
+        playItem[playNum].classList.remove('item-active');
     }
 });
 
@@ -215,9 +217,13 @@ let playNum = 0;
 function playNext() {
     if (playNum === 3) {
         playNum = 0;
+        playItem[0].classList.add('item-active')
+        playItem[3].classList.remove('item-active')
     } else {
         while (playNum <= 3) {
             playNum++;
+            playItem[playNum].classList.add('item-active')
+            playItem[playNum-1].classList.remove('item-active')
             break;
         }
     }
@@ -229,9 +235,13 @@ function playNext() {
 function playPrev() {
     if (playNum === 0) {
         playNum = 3;
+        playItem[3].classList.add('item-active')
+        playItem[0].classList.remove('item-active')
     } else {
         while (playNum <= 3) {
             playNum--;
+            playItem[playNum].classList.add('item-active')
+            playItem[playNum+1].classList.remove('item-active')
             break;
         }
     }
@@ -244,7 +254,6 @@ playNextButton.addEventListener('click', playNext);
 playPrevButton.addEventListener('click', playPrev);
 
 const playListContainer = document.querySelector('.play-list');
-const playItem = document.querySelector('.play-item');
 
 playList.forEach((el, i) => {
     const li = document.createElement('li');
@@ -252,3 +261,9 @@ playList.forEach((el, i) => {
     playListContainer.append(li);
     li.textContent = playList[i].title;
 });
+
+const playItem = document.querySelectorAll('.play-item')
+
+
+
+
