@@ -7,15 +7,23 @@ const currentDate = new Date().toLocaleDateString('en-US', options);
 
 function showDate() {
     date.textContent = currentDate;
-    setTimeout(showDate, 1000);
 }
 
 function showTime() {
     time.textContent = new Date().toLocaleTimeString();
     setTimeout(showTime, 1000);
+}
+
+setInterval(() => {
+    setBg();
     showDate();
     showGreeting();
+    getTimeOfDay();
 }
+    , 1000);
+
+showTime();
+showDate();
 
 // 2. Greeting
 
@@ -41,7 +49,6 @@ const greetingText = `Good ${timeOfDay}`;
 
 function showGreeting() {
     greeting.textContent = greetingText;
-    setTimeout(showGreeting, 1000);
 }
 
 function setLocalStorage() {
@@ -61,7 +68,7 @@ function getLocalStorage() {
 window.addEventListener('beforeunload', setLocalStorage);
 window.addEventListener('load', getLocalStorage);
 
-showTime();
+showGreeting();
 
 // 3. Images slider
 
@@ -72,8 +79,8 @@ let randomNum;
 let bgNum;
 
 function getRandomNum() {
-    min = Math.ceil(1);
-    max = Math.floor(21);
+    let min = Math.ceil(1);
+    let max = Math.floor(21);
     randomNum = Math.floor(Math.random() * (max - min)) + min;
 }
 getRandomNum();
@@ -94,7 +101,7 @@ function getSlidePrev() {
     } else {
         while (randomNum <= 20) {
             randomNum--;
-            break
+            break;
         }
     }
     setBg();
@@ -106,7 +113,7 @@ function getSlideNext() {
     } else {
         while (randomNum <= 20) {
             randomNum++;
-            break
+            break;
         }
     }
     setBg();
@@ -137,8 +144,9 @@ async function getWeather() {
     weatherDescription.textContent = data.weather[0].description;
     wind.textContent = 'Wind speed: ' + Math.round(data.wind.speed) + ' m/s';
     humidity.textContent = 'Humidity: ' + data.main.humidity + '%';
-  }
-  getWeather();
+}
+getWeather();
+setInterval(getWeather, 60000);
 
 city.addEventListener('change', () => {
     setLocalStorage();
@@ -153,8 +161,8 @@ const changeQuoteButton = document.querySelector('.change-quote')
 
 let random;
 function getRandom() {
-    min = Math.ceil(1);
-    max = Math.floor(1500);
+    let min = Math.ceil(1);
+    let max = Math.floor(1500);
     return random = Math.floor(Math.random() * (max - min)) + min;
 } 
 
@@ -170,3 +178,77 @@ async function getQuotes() {
   getQuotes();
 
   changeQuoteButton.addEventListener('click', getQuotes);
+
+// 6. Audio Player
+
+const audio = document.querySelector('audio');
+const playPrevButton = document.querySelector('.play-prev');
+const playButton = document.querySelector('.play');
+const playNextButton = document.querySelector('.play-next');
+let isPlay = false;
+
+import playList from './playList.js';
+
+function playAudio() {
+  audio.currentTime = 0;
+  audio.src = playList[playNum].src;
+  audio.play();
+}
+
+function pauseAudio() {
+  audio.pause();
+}
+
+playButton.addEventListener('click', () => {
+    if (!isPlay) {
+        playAudio();
+        isPlay = true;
+        playButton.classList.add('pause');
+    } else if (isPlay) {
+        pauseAudio();
+        isPlay = false;
+        playButton.classList.remove('pause');
+    }
+});
+
+let playNum = 0;
+function playNext() {
+    if (playNum === 3) {
+        playNum = 0;
+    } else {
+        while (playNum <= 3) {
+            playNum++;
+            break;
+        }
+    }
+    playAudio();
+    isPlay = true;
+    playButton.classList.add('pause');
+}
+
+function playPrev() {
+    if (playNum === 0) {
+        playNum = 3;
+    } else {
+        while (playNum <= 3) {
+            playNum--;
+            break;
+        }
+    }
+    playAudio();
+    isPlay = true;
+    playButton.classList.add('pause');
+}
+
+playNextButton.addEventListener('click', playNext);
+playPrevButton.addEventListener('click', playPrev);
+
+const playListContainer = document.querySelector('.play-list');
+const playItem = document.querySelector('.play-item');
+
+playList.forEach((el, i) => {
+    const li = document.createElement('li');
+    li.classList.add('play-item');
+    playListContainer.append(li);
+    li.textContent = playList[i].title;
+});
