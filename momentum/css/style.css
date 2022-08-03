@@ -342,12 +342,12 @@ body {
 }
 
 .open {
-  background-image: url('/momentum/assets/img/eye-open.png');
+  background-image: url('../assets/img/eye-open.png');
   transition: 0.3s;
 }
 
 .closed {
-  background-image: url('/momentum/assets/img/eye-closed.png');
+  background-image: url('../assets/img/eye-closed.png');
   transition: 0.3s;
 }
 

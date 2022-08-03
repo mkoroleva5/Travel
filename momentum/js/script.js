@@ -57,12 +57,8 @@ function setLocalStorage() {
 }
 
 function getLocalStorage() {
-    if(localStorage.getItem('name')) {
-        name.value = localStorage.getItem('name');
-    } 
-    if (localStorage.getItem('city')) {
-        city.value = localStorage.getItem('city');
-    }
+    if (localStorage.getItem('name')) name.value = localStorage.getItem('name');
+    if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
 }
 
 window.addEventListener('beforeunload', setLocalStorage);
@@ -138,13 +134,16 @@ async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
     const res = await fetch(url);
     const data = await res.json(); 
-
-    weatherIcon.className = 'weather-icon owf';
-    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-    temperature.textContent = `${Math.round(data.main.temp)}°C`;
-    weatherDescription.textContent = data.weather[0].description;
-    wind.textContent = 'Wind speed: ' + Math.round(data.wind.speed) + ' m/s';
-    humidity.textContent = 'Humidity: ' + data.main.humidity + '%';
+    if (res.status !== 200) {
+        alert('Enter your city')
+    } else {
+        weatherIcon.className = 'weather-icon owf';
+        weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+        temperature.textContent = `${Math.round(data.main.temp)}°C`;
+        weatherDescription.textContent = data.weather[0].description;
+        wind.textContent = 'Wind speed: ' + Math.round(data.wind.speed) + ' m/s';
+        humidity.textContent = 'Humidity: ' + data.main.humidity + '%';
+    }
 }
 getWeather();
 setInterval(getWeather, 60000);
@@ -153,6 +152,8 @@ city.addEventListener('change', () => {
     setLocalStorage();
     getWeather();
 });
+
+
 
 // 5. Quotes
 
@@ -322,7 +323,34 @@ for (let i=0; i<settingsItems.length; i++) {
            player.classList.toggle('invisible');
            player.style.transition = '0.5s';
         }    
+        
     })
 }
+
+/*function setLocalStorageSettings() {
+    settingsItems[0].addEventListener('change', () => {
+        if(settingsItems[0].checked) {
+            localStorage.setItem('show-time', settingsItems[0].value='on');
+        } else {
+            localStorage.setItem('show-time', settingsItems[0].value='off');
+        }
+    })
+}
+
+function getLocalStorageSettings() {
+    if (localStorage.getItem('show-time') === 'off') {
+        time.classList.add('invisible');
+        checkboxIcon[0].classList.remove('open');
+        checkboxIcon[0].classList.add('closed');
+    } else {
+        time.classList.remove('invisible');
+        checkboxIcon[0].classList.add('open');
+        checkboxIcon[0].classList.remove('closed');
+    }
+}
+
+window.addEventListener('beforeunload', setLocalStorageSettings);
+window.addEventListener('load', getLocalStorageSettings);
+*/
 
 
