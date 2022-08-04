@@ -33,6 +33,15 @@ body {
   padding: 20px;
 }
 
+.track-name {
+  height: 30px;
+  width: 275px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .controls {
   display: flex;
   flex-direction: row;

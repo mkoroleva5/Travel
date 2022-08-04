@@ -188,6 +188,7 @@ const audio = document.querySelector('audio');
 const playPrevButton = document.querySelector('.play-prev');
 const playButton = document.querySelector('.play');
 const playNextButton = document.querySelector('.play-next');
+const trackName = document.querySelector('.track-name');
 let isPlay = false;
 
 import playList from '../js/playList.js';
@@ -212,11 +213,13 @@ function playTrack() {
         isPlay = true;
         playButton.classList.add('pause');
         playItem[playNum].classList.add('item-active');
+        trackName.innerHTML = `${playItem[playNum].textContent}`;
     } else if (isPlay) {
         pauseAudio();
         isPlay = false;
         playButton.classList.remove('pause');
         playItem[playNum].classList.remove('item-active');
+        trackName.innerHTML = '';
     }
 }
 playButton.addEventListener('click', playTrack);
@@ -226,13 +229,15 @@ let playNum = 0;
 function playNext() {
     if (playNum === 3) {
         playNum = 0;
-        playItem[0].classList.add('item-active')
-        playItem[3].classList.remove('item-active')
+        playItem[0].classList.add('item-active');
+        playItem[3].classList.remove('item-active');
+        trackName.innerHTML = `${playItem[playNum].textContent}`;
     } else {
         while (playNum <= 3) {
             playNum++;
-            playItem[playNum].classList.add('item-active')
-            playItem[playNum-1].classList.remove('item-active')
+            playItem[playNum].classList.add('item-active');
+            playItem[playNum-1].classList.remove('item-active');
+            trackName.innerHTML = `${playItem[playNum].textContent}`;
             break;
         }
     }
@@ -244,13 +249,15 @@ function playNext() {
 function playPrev() {
     if (playNum === 0) {
         playNum = 3;
-        playItem[3].classList.add('item-active')
-        playItem[0].classList.remove('item-active')
+        playItem[3].classList.add('item-active');
+        playItem[0].classList.remove('item-active');
+        trackName.innerHTML = `${playItem[playNum].textContent}`;
     } else {
         while (playNum <= 3) {
             playNum--;
-            playItem[playNum].classList.add('item-active')
-            playItem[playNum+1].classList.remove('item-active')
+            playItem[playNum].classList.add('item-active');
+            playItem[playNum+1].classList.remove('item-active');
+            trackName.innerHTML = `${playItem[playNum].textContent}`;
             break;
         }
     }
