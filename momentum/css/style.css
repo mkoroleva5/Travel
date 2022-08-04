@@ -33,12 +33,18 @@ body {
   padding: 20px;
 }
 
+.controls {
+  display: flex;
+  flex-direction: row;
+}
+
 .player-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 120px;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
+  margin-right: 30px;
 }
 
 .play-list {
@@ -52,7 +58,7 @@ body {
   list-style: none;
   opacity: .8;
   cursor: pointer;
-  transition: .3s;
+  transition: .1s;
 }
 
 .play-item:hover {
@@ -68,6 +74,10 @@ body {
 }
 
 .item-active::before {
+  color: #C5B358;
+}
+
+.item-active {
   color: #C5B358;
 }
 
@@ -128,10 +138,8 @@ body {
 }
 
 .mute-button {
-  position: absolute;
-  left: 0;
   margin-right: 5px;
-  width: 70px;
+  width: 20px;
   height: 20px;
   background-size: 20px 20px;
   background-image: url("../assets/svg/unmuted.svg");
@@ -141,18 +149,20 @@ body {
   background-image: url("../assets/svg/muted.svg");
 }
 
-#volume {
-  position: absolute;
-  left: 50px;
+.volume {
   height: 5px;
   width: 100px;
   cursor: pointer;
   opacity: 0;
+  background: white;
+  border-radius: 3px;
 }
 
 .volume-percentage {
   height: 100%;
   width: 100%;
+  background: rgb(137, 131, 175);
+  border-radius: 3px;
 }
 
 .weather {

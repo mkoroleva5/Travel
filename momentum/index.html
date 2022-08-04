@@ -12,15 +12,18 @@
   <header class="header">
     <div class="player">
       <audio src="/momentum/js/playList.js"></audio>
-      <div class="player-controls">
-        <button class="play-prev player-icon"></button>
-        <button class="play player-icon"></button>
-        <button class="play-next player-icon"></button>
-      </div>
-      <div class="volume-controls">
-        <button class="mute-button player-icon"></button>
-        <input type="range" id="volume" value="100" min="0" max="100"/>
-        <div class="volume-percentage"></div>
+      <div class="controls">
+        <div class="player-controls">
+          <button class="play-prev player-icon"></button>
+          <button class="play player-icon"></button>
+          <button class="play-next player-icon"></button>
+        </div>
+        <div class="volume-controls">
+          <button class="mute-button player-icon"></button>
+          <div class="volume">
+            <div class="volume-percentage"></div>
+          </div>
+        </div>
       </div>
       <ul class="play-list"></ul>
     </div>

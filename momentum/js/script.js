@@ -54,13 +54,13 @@ function showGreeting() {
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
     localStorage.setItem('city', city.value);
-    localStorage.setItem('volume', volume.value);
+    //localStorage.setItem('volume', volume.value);
 }
 
 function getLocalStorage() {
     if (localStorage.getItem('name')) name.value = localStorage.getItem('name');
     if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
-    if (localStorage.getItem('volume')) volume.value = localStorage.getItem('volume');
+    //if (localStorage.getItem('volume')) volume.value = localStorage.getItem('volume');
 }
 
 window.addEventListener('beforeunload', setLocalStorage);
@@ -206,7 +206,7 @@ audio.addEventListener('ended', () => {
     playNext();
 });
 
-playButton.addEventListener('click', () => {
+function playTrack() {
     if (!isPlay) {
         playAudio();
         isPlay = true;
@@ -218,7 +218,9 @@ playButton.addEventListener('click', () => {
         playButton.classList.remove('pause');
         playItem[playNum].classList.remove('item-active');
     }
-});
+}
+playButton.addEventListener('click', playTrack);
+
 
 let playNum = 0;
 function playNext() {
@@ -269,12 +271,11 @@ playList.forEach((el, i) => {
     li.textContent = playList[i].title;
 });
 
-const playItem = document.querySelectorAll('.play-item');
-
 // 7*. Advanced audio player
 
 const muteButton = document.querySelector('.mute-button');
-const volume = document.getElementById('volume')
+const volume = document.querySelector('.volume');
+const volumePercentage = document.querySelector('.volume-percentage');
 
 muteButton.addEventListener('click', () => {
     muteButton.classList.toggle('muted');
@@ -282,20 +283,50 @@ muteButton.addEventListener('click', () => {
     else audio.muted = false;
 });
 
+function setVolume() {
+    localStorage.setItem('volume', volumePercentage.style.width);
+}
+
+function getVolume() {
+    if (localStorage.getItem('volume')) volumePercentage.style.width = localStorage.getItem('volume');
+}
+
+window.addEventListener('beforeunload', setVolume);
+window.addEventListener('load', getVolume);
+
 async function changeVolume() {
-    const res = await getLocalStorage();
-    volume.style.opacity='1'
+    const res = await getVolume();
+    volume.style.opacity = '1';
     
     volume.addEventListener('click', e => {
         const sliderWidth = window.getComputedStyle(volume).width;
         const newVolume = e.offsetX / parseInt(sliderWidth);
-        const volumePercentage = document.querySelector('.volume-percentage')
         audio.volume = newVolume;
         volumePercentage.style.width = newVolume * 100 + '%';
       }, false)
 }
 changeVolume();
 
+const playItem = document.querySelectorAll('.play-item');
+
+playItem.forEach((el, i) => {
+    playItem[i].addEventListener('click', () => {
+        if (isPlay && playNum == i) {
+            playTrack();
+        } else {
+            playNum = i
+            playTrack();
+            if(!isPlay) {
+                playItem[0].classList.remove('item-active');
+                playItem[1].classList.remove('item-active');
+                playItem[2].classList.remove('item-active');
+                playItem[3].classList.remove('item-active');
+                playNum = i
+                playTrack();
+            }
+        }
+    })
+})
 
 
 // 8. Translation
