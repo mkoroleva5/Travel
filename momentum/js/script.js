@@ -54,11 +54,13 @@ function showGreeting() {
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
     localStorage.setItem('city', city.value);
+    localStorage.setItem('volume', volume.value);
 }
 
 function getLocalStorage() {
     if (localStorage.getItem('name')) name.value = localStorage.getItem('name');
     if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
+    if (localStorage.getItem('volume')) volume.value = localStorage.getItem('volume');
 }
 
 window.addEventListener('beforeunload', setLocalStorage);
@@ -153,8 +155,6 @@ city.addEventListener('change', () => {
     getWeather();
 });
 
-
-
 // 5. Quotes
 
 const quote = document.querySelector('.quote');
@@ -190,7 +190,7 @@ const playButton = document.querySelector('.play');
 const playNextButton = document.querySelector('.play-next');
 let isPlay = false;
 
-import playList from './playList.js';
+import playList from '../js/playList.js';
 
 function playAudio() {
   audio.currentTime = 0;
@@ -201,6 +201,10 @@ function playAudio() {
 function pauseAudio() {
   audio.pause();
 }
+
+audio.addEventListener('ended', () => {
+    playNext();
+});
 
 playButton.addEventListener('click', () => {
     if (!isPlay) {
@@ -267,6 +271,33 @@ playList.forEach((el, i) => {
 
 const playItem = document.querySelectorAll('.play-item');
 
+// 7*. Advanced audio player
+
+const muteButton = document.querySelector('.mute-button');
+const volume = document.getElementById('volume')
+
+muteButton.addEventListener('click', () => {
+    muteButton.classList.toggle('muted');
+    if (audio.muted === false) audio.muted = true;
+    else audio.muted = false;
+});
+
+async function changeVolume() {
+    const res = await getLocalStorage();
+    volume.style.opacity='1'
+    
+    volume.addEventListener('click', e => {
+        const sliderWidth = window.getComputedStyle(volume).width;
+        const newVolume = e.offsetX / parseInt(sliderWidth);
+        const volumePercentage = document.querySelector('.volume-percentage')
+        audio.volume = newVolume;
+        volumePercentage.style.width = newVolume * 100 + '%';
+      }, false)
+}
+changeVolume();
+
+
+
 // 8. Translation
 /*
 const greetingTranslation = {
@@ -282,7 +313,15 @@ const settings = document.querySelector('.settings')
 
 settingsIcon.addEventListener('click', () =>{
     settingsIcon.classList.toggle('rotate');
+    settings.classList.toggle('invisible');
     settings.classList.toggle('visible');
+});
+
+document.addEventListener('click', (event) => {
+    if (!event.composedPath().includes(settings) && !event.composedPath().includes(settingsIcon)) {
+        settings.classList.add('invisible');
+        settings.classList.remove('visible');
+    }
 });
 
 const state = {

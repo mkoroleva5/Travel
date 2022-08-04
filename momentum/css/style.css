@@ -120,6 +120,41 @@ body {
   background-image: url("../assets/svg/play-next.svg");
 }
 
+.volume-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mute-button {
+  position: absolute;
+  left: 0;
+  margin-right: 5px;
+  width: 70px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-image: url("../assets/svg/unmuted.svg");
+}
+
+.muted {
+  background-image: url("../assets/svg/muted.svg");
+}
+
+#volume {
+  position: absolute;
+  left: 50px;
+  height: 5px;
+  width: 100px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.volume-percentage {
+  height: 100%;
+  width: 100%;
+}
+
 .weather {
   display: flex;
   flex-direction: column;
@@ -298,17 +333,17 @@ body {
   padding: 20px;
   color: black;
   background-color: white;
-  opacity: 0;
-  transition: 0.5s;
-}
-
-.visible {
   opacity: 0.8;
   transition: 0.5s;
 }
 
+.visible {
+  display: block;
+  transition: 0.5s;
+}
+
 .invisible {
-  opacity: 0;
+  display: none;
   transition: 0.5s;
 }
 
@@ -342,12 +377,12 @@ body {
 }
 
 .open {
-  background-image: url('../assets/img/eye-open.png');
+  background-image: url('../assets/svg/eye-open.svg');
   transition: 0.3s;
 }
 
 .closed {
-  background-image: url('../assets/img/eye-closed.png');
+  background-image: url('../assets/svg/eye-closed.svg');
   transition: 0.3s;
 }
 

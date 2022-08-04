@@ -17,6 +17,11 @@
         <button class="play player-icon"></button>
         <button class="play-next player-icon"></button>
       </div>
+      <div class="volume-controls">
+        <button class="mute-button player-icon"></button>
+        <input type="range" id="volume" value="100" min="0" max="100"/>
+        <div class="volume-percentage"></div>
+      </div>
       <ul class="play-list"></ul>
     </div>
     <div class="weather">
@@ -49,7 +54,7 @@
       <div class="quote"></div>
       <div class="author"></div>
     </div>
-    <div class="settings">
+    <div class="settings invisible">
       <div class="settings-show">
         <h2>Show</h2>
         <form class="settings-checkbox">
@@ -86,7 +91,7 @@
         </form>
       </div>
     </div>
-    <img class="settings-icon" src="assets/img/settings.png" alt="Settings">
+    <img class="settings-icon" src="assets/svg/settings.svg" alt="Settings">
   </footer>
   <script type="module" src="js/script.js"></script>
 </body>
