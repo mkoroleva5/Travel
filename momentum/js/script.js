@@ -214,12 +214,14 @@ function playTrack() {
         playButton.classList.add('pause');
         playItem[playNum].classList.add('item-active');
         trackName.innerHTML = `${playItem[playNum].textContent}`;
+        trackLength.textContent = `${playList[playNum].duration}`;
     } else if (isPlay) {
         pauseAudio();
         isPlay = false;
         playButton.classList.remove('pause');
         playItem[playNum].classList.remove('item-active');
         trackName.innerHTML = '';
+        trackLength.textContent = `00:00`;
     }
 }
 playButton.addEventListener('click', playTrack);
@@ -232,12 +234,14 @@ function playNext() {
         playItem[0].classList.add('item-active');
         playItem[3].classList.remove('item-active');
         trackName.innerHTML = `${playItem[playNum].textContent}`;
+        trackLength.textContent = `${playList[playNum].duration}`;
     } else {
         while (playNum <= 3) {
             playNum++;
             playItem[playNum].classList.add('item-active');
             playItem[playNum-1].classList.remove('item-active');
             trackName.innerHTML = `${playItem[playNum].textContent}`;
+            trackLength.textContent = `${playList[playNum].duration}`;
             break;
         }
     }
@@ -252,12 +256,14 @@ function playPrev() {
         playItem[3].classList.add('item-active');
         playItem[0].classList.remove('item-active');
         trackName.innerHTML = `${playItem[playNum].textContent}`;
+        trackLength.textContent = `${playList[playNum].duration}`;
     } else {
         while (playNum <= 3) {
             playNum--;
             playItem[playNum].classList.add('item-active');
             playItem[playNum+1].classList.remove('item-active');
             trackName.innerHTML = `${playItem[playNum].textContent}`;
+            trackLength.textContent = `${playList[playNum].duration}`;
             break;
         }
     }
@@ -280,6 +286,8 @@ playList.forEach((el, i) => {
 
 // 7*. Advanced audio player
 
+// 7.1. Volume
+
 const muteButton = document.querySelector('.mute-button');
 const volume = document.querySelector('.volume');
 const volumePercentage = document.querySelector('.volume-percentage');
@@ -291,11 +299,13 @@ muteButton.addEventListener('click', () => {
 });
 
 function setVolume() {
-    localStorage.setItem('volume', volumePercentage.style.width);
+    localStorage.setItem('volume-bar', volumePercentage.style.width);
+    localStorage.setItem('volume', audio.volume);
 }
 
 function getVolume() {
-    if (localStorage.getItem('volume')) volumePercentage.style.width = localStorage.getItem('volume');
+    if (localStorage.getItem('volume-bar')) volumePercentage.style.width = localStorage.getItem('volume-bar');
+    if (localStorage.getItem('volume')) audio.volume = localStorage.getItem('volume');
 }
 
 window.addEventListener('beforeunload', setVolume);
@@ -303,6 +313,7 @@ window.addEventListener('load', getVolume);
 
 async function changeVolume() {
     const res = await getVolume();
+    
     volume.style.opacity = '1';
     
     volume.addEventListener('click', e => {
@@ -312,7 +323,10 @@ async function changeVolume() {
         volumePercentage.style.width = newVolume * 100 + '%';
       }, false)
 }
+
 changeVolume();
+
+// 7.2. Change track by clicking on track name
 
 const playItem = document.querySelectorAll('.play-item');
 
@@ -335,6 +349,44 @@ playItem.forEach((el, i) => {
     })
 })
 
+// 7.3. Progress bar
+
+const timeline = document.querySelector('.timeline');
+const progressBar = document.querySelector('.progress-bar');
+const currentTime = document.querySelector('.current');
+const trackLength = document.querySelector('.length');
+
+timeline.addEventListener('click', e => {
+    if (isPlay) {
+        const timelineWidth = window.getComputedStyle(timeline).width;
+        const timeToSeek = e.offsetX / parseInt(timelineWidth) * audio.duration;
+        audio.currentTime = timeToSeek; 
+    } 
+}, false);
+
+function getTimeCodeFromNum(num) {
+    let seconds = parseInt(num);
+    let minutes = parseInt(seconds / 60);
+    seconds -= minutes * 60;
+    const hours = parseInt(minutes / 60);
+    minutes -= hours * 60;
+
+    if (hours === 0) return `0${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+        return `${String(hours).padStart(2, 0)}:0${minutes}:${String(
+            seconds % 60
+    ).padStart(2, 0)}`;
+}
+
+setInterval(() => {
+    if (isPlay) {
+        progressBar.style.width = audio.currentTime / audio.duration * 100 + '%';
+        currentTime.textContent = getTimeCodeFromNum(audio.currentTime);
+    } else {
+        progressBar.style.width = '0%';
+        audio.currentTime = 0;
+        currentTime.textContent = getTimeCodeFromNum(audio.currentTime);
+    }
+}, 100);
 
 // 8. Translation
 /*
@@ -400,7 +452,6 @@ for (let i=0; i<settingsItems.length; i++) {
            player.classList.toggle('invisible');
            player.style.transition = '0.5s';
         }    
-        
     })
 }
 

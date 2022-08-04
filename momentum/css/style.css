@@ -34,17 +34,52 @@ body {
 }
 
 .track-name {
+  display: flex;
+  justify-content: center;
   height: 30px;
-  width: 275px;
-  margin-bottom: 10px;
+  width: 200px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow:ellipsis;
+  display: -webkit-box; 
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 8;
+}
+
+.time-bar {
+  display: flex;
+  flex-direction: row;
+}
+
+.timeline {
+  display: flex;
+  margin-bottom: 10px;
+  height: 7px;
+  width: 100%;
+  margin-top: 3.5px;
+  background-color: rgb(255, 255, 255, 0.8);
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  display: flex;
+  background: rgb(137, 131, 175);
+  width: 0%;
+  height: 100%;
+  transition: 0.25s;
+}
+
+.track-time {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
 }
 
 .controls {
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
 }
 
 .player-controls {
@@ -52,7 +87,6 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 120px;
-  margin-bottom: 20px;
   margin-right: 30px;
 }
 
@@ -143,7 +177,6 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .mute-button {
@@ -163,8 +196,13 @@ body {
   width: 100px;
   cursor: pointer;
   opacity: 0;
-  background: white;
+  background: rgb(255, 255, 255, 0.8);
   border-radius: 3px;
+}
+
+.volume:hover,
+.timeline:hover {
+  background: rgb(255, 255, 255, 1);
 }
 
 .volume-percentage {
@@ -314,6 +352,7 @@ body {
 
 .quote {
   min-height: 32px;
+  padding: 0 40px;
 }
 
 .author {
@@ -347,7 +386,8 @@ body {
   bottom: 70px;
   left: 20px;
   border-radius: 16px;
-  width: 40%;
+  width: 500px;
+  max-width: 100%;
   height: 50%;
   padding: 20px;
   color: black;
