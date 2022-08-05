@@ -97,7 +97,7 @@ body {
 .play-item {
   position: relative;
   padding: 5px;
-  padding-left: 20px;
+  padding-left: 25px;
   list-style: none;
   opacity: .8;
   cursor: pointer;
@@ -109,16 +109,20 @@ body {
 }
 
 .play-item::before {
-  content: "\2713";  
+  content: "";  
   position: absolute;
   left: 0;
-  top: 2px;
-  font-weight: 900;
+  top: 3.5px;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-image: url("../assets/svg/play.svg");
 }
 
 .item-active::before {
-  color: #C5B358;
+  background-image: url("../assets/svg/pause.svg");
 }
+
 
 .item-active {
   color: #C5B358;
