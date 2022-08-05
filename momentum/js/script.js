@@ -1,11 +1,17 @@
+const en = ['Enter your city', 'Wind speed', 'm/s', 'Humidity', 'Where are you?', 'What\'s your name?'];
+const ru = ['Введите Ваш город', 'Скорость ветра', 'м/с', 'Влажность', 'Где Вы?', 'Как Вас зовут?'];
+let language = en;
+
 // 1. Clock and calendar
 
 const time = document.querySelector('.time');
 const date = document.querySelector('.date');
 const options = {weekday: 'long', month: 'long', day: 'numeric'};
-const currentDate = new Date().toLocaleDateString('en-US', options);
 
 function showDate() {
+    let currentDate;
+    if (language === en) currentDate = new Date().toLocaleDateString('en-US', options);
+    if (language === ru) currentDate = new Date().toLocaleDateString('ru-RU', options);
     date.textContent = currentDate;
 }
 
@@ -14,13 +20,10 @@ function showTime() {
     setTimeout(showTime, 1000);
 }
 
-setInterval(() => {
-    setBg();
-    showDate();
-    showGreeting();
-    getTimeOfDay();
-}
-    , 1000);
+setInterval(setBg, 1000);
+setInterval(showDate, 1000);
+setInterval(showGreeting, 1000);
+setInterval(getTimeOfDay, 1000);
 
 showTime();
 showDate();
@@ -45,7 +48,7 @@ function getTimeOfDay() {
 }
 
 const timeOfDay = getTimeOfDay();
-const greetingText = `Good ${timeOfDay}`;
+let greetingText = `Good ${timeOfDay}`;
 
 function showGreeting() {
     greeting.textContent = greetingText;
@@ -54,13 +57,11 @@ function showGreeting() {
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
     localStorage.setItem('city', city.value);
-    //localStorage.setItem('volume', volume.value);
 }
 
 function getLocalStorage() {
     if (localStorage.getItem('name')) name.value = localStorage.getItem('name');
     if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
-    //if (localStorage.getItem('volume')) volume.value = localStorage.getItem('volume');
 }
 
 window.addEventListener('beforeunload', setLocalStorage);
@@ -133,27 +134,30 @@ city.value = 'Minsk';
 
 async function getWeather() {  
     getLocalStorage();
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${language}&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
     const res = await fetch(url);
     const data = await res.json(); 
     if (res.status !== 200) {
-        alert('Enter your city')
+        alert(language[0])
     } else {
         weatherIcon.className = 'weather-icon owf';
         weatherIcon.classList.add(`owf-${data.weather[0].id}`);
         temperature.textContent = `${Math.round(data.main.temp)}°C`;
         weatherDescription.textContent = data.weather[0].description;
-        wind.textContent = 'Wind speed: ' + Math.round(data.wind.speed) + ' m/s';
-        humidity.textContent = 'Humidity: ' + data.main.humidity + '%';
+        wind.textContent = language[1] + ': ' + Math.round(data.wind.speed) + ' ' + language[2];
+        humidity.textContent = language[3] + ': ' + data.main.humidity + '%';
     }
+   
 }
-getWeather();
-setInterval(getWeather, 60000);
+/*getWeather();
+setInterval(getWeather, 30000);*/
 
 city.addEventListener('change', () => {
     setLocalStorage();
     getWeather();
 });
+
+console.log()
 
 // 5. Quotes
 
@@ -164,12 +168,16 @@ const changeQuoteButton = document.querySelector('.change-quote')
 let random;
 function getRandom() {
     let min = Math.ceil(1);
-    let max = Math.floor(1500);
+    let max;
+    if (language === en) max = Math.floor(1500);
+    if (language === ru) max = Math.floor(30);
     return random = Math.floor(Math.random() * (max - min)) + min;
 } 
 
 async function getQuotes() {  
-    const quotes = 'data.json';
+    let quotes;
+    if (language === en) quotes = 'data.json';
+    if (language === ru) quotes = 'dataRU.json';
     const res = await fetch(quotes);
     const data = await res.json(); 
 
@@ -389,17 +397,34 @@ setInterval(() => {
 }, 100);
 
 // 8. Translation
-/*
-const greetingTranslation = {
-    en: '',
-    ru: ''
+
+function getTimeOfDayRu() {
+    if (hours >= 0 && hours < 6) {
+        return 'Доброй ночи,';
+    } else if (hours >= 6 && hours < 12) {
+        return 'Доброе утро,';
+    } else if (hours >= 12 && hours < 18) {
+        return 'Добрый день,';
+    } else if (hours >= 18 && hours <= 23) {
+        return 'Добрый вечер,';
+    }
 }
-*/
+getTimeOfDayRu();
+const timeOfDayRu = getTimeOfDayRu();
+
+const greetingTranslation = {
+    en: `Good ${timeOfDay}`,
+    ru: `${timeOfDayRu}`,
+};
+
 
 // 10. Settings
 
+
+// 10.1. Show settings
+
 const settingsIcon = document.querySelector('.settings-icon');
-const settings = document.querySelector('.settings')
+const settings = document.querySelector('.settings-wrapper')
 
 settingsIcon.addEventListener('click', () =>{
     settingsIcon.classList.toggle('rotate');
@@ -480,5 +505,39 @@ function getLocalStorageSettings() {
 window.addEventListener('beforeunload', setLocalStorageSettings);
 window.addEventListener('load', getLocalStorageSettings);
 */
+
+// 10.2. Language settings
+
+const buttonEN = document.querySelector('.button-en');
+const buttonRU = document.querySelector('.button-ru');
+const showTitle = document.querySelector('.show-title');
+const languageTitle = document.querySelector('.language-title');
+
+buttonEN.addEventListener('click', () => {
+    language = en;
+    buttonEN.classList.add('button-selected');
+    buttonRU.classList.remove('button-selected');
+    greetingText = greetingTranslation.en;
+    city.value = 'Minsk';
+    name.placeholder = 'What\'s your name?';
+    city.placeholder = 'Where are you?';
+    getQuotes();
+    showTitle.textContent = 'Show';
+    languageTitle.textContent = 'Language';
+});
+
+buttonRU.addEventListener('click', () => {
+    language = ru;
+    buttonRU.classList.add('button-selected');
+    buttonEN.classList.remove('button-selected');
+    greetingText = greetingTranslation.ru;
+    city.value = 'Минск';
+    name.placeholder = 'Как Вас зовут?';
+    city.placeholder = 'Где Вы?';
+    getQuotes();
+    showTitle.textContent = 'Показывать';
+    languageTitle.textContent = 'Язык';
+});
+
 
 

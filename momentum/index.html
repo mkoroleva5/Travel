@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link href="assets/icon.ico" rel="shortcut icon" />
   <link rel="stylesheet" href="css/owfont-regular.css" />
   <link rel="stylesheet" href="css/style.css" />
   <title>momentum</title>
@@ -68,45 +68,55 @@
       <div class="quote"></div>
       <div class="author"></div>
     </div>
-    <div class="settings invisible">
-      <div class="settings-show">
-        <h2>Show</h2>
-        <form class="settings-checkbox">
-          <label>
-            <div class="checkbox-icon open"></div>
-            <input type="checkbox" class="settings-item" checked>
-            Time
-          </label>
-          <label>
-            <div class="checkbox-icon open"></div>
-            <input type="checkbox" class="settings-item" checked>
-            Date
-          </label>
-          <label>
-            <div class="checkbox-icon open"></div>
-            <input type="checkbox" class="settings-item" checked>
-            Greeting
-          </label>
-          <label>
-            <div class="checkbox-icon open"></div>
-            <input type="checkbox" class="settings-item" checked>
-            Quote
-          </label>
-          <label>
-            <div class="checkbox-icon open"></div>
-            <input type="checkbox" class="settings-item" checked>
-            Weather
-          </label>
-          <label>
-            <div class="checkbox-icon open"></div>
-            <input type="checkbox" class="settings-item" checked>
-            Audio
-          </label>
-        </form>
+    <div class="settings-wrapper invisible">
+      <div class="settings">
+        <div class="settings-show">
+          <h2 class="show-title">Show</h2>
+          <form class="settings-checkbox">
+            <label>
+              <div class="checkbox-icon open"></div>
+              <input type="checkbox" class="settings-item" checked>
+              Time
+            </label>
+            <label>
+              <div class="checkbox-icon open"></div>
+              <input type="checkbox" class="settings-item" checked>
+              Date
+            </label>
+            <label>
+              <div class="checkbox-icon open"></div>
+              <input type="checkbox" class="settings-item" checked>
+              Greeting
+            </label>
+            <label>
+              <div class="checkbox-icon open"></div>
+              <input type="checkbox" class="settings-item" checked>
+              Quote
+            </label>
+            <label>
+              <div class="checkbox-icon open"></div>
+              <input type="checkbox" class="settings-item" checked>
+              Weather
+            </label>
+            <label>
+              <div class="checkbox-icon open"></div>
+              <input type="checkbox" class="settings-item" checked>
+              Audio
+            </label>
+          </form>
+        </div>
+        <div class="settings-language">
+          <h2 class="language-title">Language</h2>
+          <div class="language-buttons">
+          <button class="button-en button-selected">EN</button>
+          <button class="button-ru">RU</button>
+        </div>
       </div>
     </div>
-    <img class="settings-icon" src="assets/svg/settings.svg" alt="Settings">
   </footer>
+  <div>
+    <img class="settings-icon" src="assets/svg/settings.svg" alt="Settings">
+  </div>
   <script type="module" src="js/script.js"></script>
 </body>
 </html>
