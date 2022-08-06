@@ -134,10 +134,18 @@ city.value = 'Minsk';
 
 async function getWeather() {  
     getLocalStorage();
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${language}&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+    let url;
+    if (language === en) {
+        if (!city.value) url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&lang=en&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+        if (city.value) url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+    } 
+    if (language === ru) {
+        if (!city.value) url = `https://api.openweathermap.org/data/2.5/weather?q=Минск&lang=ru&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+        if (city.value)url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+    }
     const res = await fetch(url);
     const data = await res.json(); 
-    if (res.status !== 200) {
+    if (res.status !== 200 || !city.value) {
         alert(language[0])
     } else {
         weatherIcon.className = 'weather-icon owf';
@@ -147,17 +155,14 @@ async function getWeather() {
         wind.textContent = language[1] + ': ' + Math.round(data.wind.speed) + ' ' + language[2];
         humidity.textContent = language[3] + ': ' + data.main.humidity + '%';
     }
-   
 }
-/*getWeather();
-setInterval(getWeather, 30000);*/
+getWeather();
+setInterval(getWeather, 300000);
 
 city.addEventListener('change', () => {
     setLocalStorage();
     getWeather();
 });
-
-console.log()
 
 // 5. Quotes
 
@@ -508,36 +513,80 @@ window.addEventListener('load', getLocalStorageSettings);
 
 // 10.2. Language settings
 
+const languageCheckbox = document.querySelector('.language-buttons');
 const buttonEN = document.querySelector('.button-en');
 const buttonRU = document.querySelector('.button-ru');
 const showTitle = document.querySelector('.show-title');
 const languageTitle = document.querySelector('.language-title');
 
-buttonEN.addEventListener('click', () => {
-    language = en;
-    buttonEN.classList.add('button-selected');
-    buttonRU.classList.remove('button-selected');
-    greetingText = greetingTranslation.en;
-    city.value = 'Minsk';
-    name.placeholder = 'What\'s your name?';
-    city.placeholder = 'Where are you?';
-    getQuotes();
-    showTitle.textContent = 'Show';
-    languageTitle.textContent = 'Language';
+function changeLanguage() {
+    if (buttonEN.checked) {
+        language = en;
+        buttonEN.classList.add('button-selected');
+        buttonRU.classList.remove('button-selected');
+        greetingText = greetingTranslation.en;
+        getWeather();
+        name.placeholder = 'What\'s your name?';
+        city.placeholder = 'Where are you?';
+        getQuotes();
+        showTitle.textContent = 'Show';
+        languageTitle.textContent = 'Language';
+    }
+    if (buttonRU.checked) {
+        language = ru;
+        buttonRU.classList.add('button-selected');
+        buttonEN.classList.remove('button-selected');
+        greetingText = greetingTranslation.ru;
+        getWeather();
+        name.placeholder = 'Как Вас зовут?';
+        city.placeholder = 'Где Вы?';
+        getQuotes();
+        showTitle.textContent = 'Показывать';
+        languageTitle.textContent = 'Язык';
+    }
+}
+
+languageCheckbox.addEventListener('change', changeLanguage);
+
+function setLanguage() {
+        if (buttonEN.checked) {
+            let value = buttonEN.value;
+            localStorage.setItem('language', value)
+            if (localStorage.getItem('language') == en) console.log(1);
+        } else if (buttonRU.checked) {
+            let value = buttonRU.value;
+            localStorage.setItem('language', value)
+        }
+}
+
+function getLanguage() {
+    let value = localStorage.getItem('language');
+    if (value === 'en') {
+        buttonEN.checked = true;
+        buttonRU.checked = false;
+    } else if (value === 'ru') {
+        buttonRU.checked = true;
+        buttonEN.checked = false;
+    }
+
+}
+
+window.addEventListener('beforeunload', setLanguage);
+window.addEventListener('load', () => {
+    getLanguage();
+    changeLanguage();
 });
 
-buttonRU.addEventListener('click', () => {
-    language = ru;
-    buttonRU.classList.add('button-selected');
-    buttonEN.classList.remove('button-selected');
-    greetingText = greetingTranslation.ru;
-    city.value = 'Минск';
-    name.placeholder = 'Как Вас зовут?';
-    city.placeholder = 'Где Вы?';
-    getQuotes();
-    showTitle.textContent = 'Показывать';
-    languageTitle.textContent = 'Язык';
-});
+/*
+function setLocalStorage1() {
+    localStorage.setItem('language', languageCheckbox.value);
+}
 
+function getLocalStorage1() {
+    if (localStorage.getItem('language')) languageCheckbox.value = localStorage.getItem('language');
+}
 
+window.addEventListener('beforeunload', setLocalStorage1);
+window.addEventListener('load', getLocalStorage1);
 
+console.log(languageCheckbox.checked.value)*/
