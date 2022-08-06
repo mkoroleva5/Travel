@@ -516,14 +516,16 @@ window.addEventListener('load', getLocalStorageSettings);
 const languageCheckbox = document.querySelector('.language-buttons');
 const buttonEN = document.querySelector('.button-en');
 const buttonRU = document.querySelector('.button-ru');
+const buttonEnIcon = document.querySelector('.button-en-icon');
+const buttonRuIcon = document.querySelector('.button-ru-icon');
 const showTitle = document.querySelector('.show-title');
 const languageTitle = document.querySelector('.language-title');
 
 function changeLanguage() {
     if (buttonEN.checked) {
         language = en;
-        buttonEN.classList.add('button-selected');
-        buttonRU.classList.remove('button-selected');
+        buttonEnIcon.classList.add('button-selected');
+        buttonRuIcon.classList.remove('button-selected');
         greetingText = greetingTranslation.en;
         getWeather();
         name.placeholder = 'What\'s your name?';
@@ -534,8 +536,8 @@ function changeLanguage() {
     }
     if (buttonRU.checked) {
         language = ru;
-        buttonRU.classList.add('button-selected');
-        buttonEN.classList.remove('button-selected');
+        buttonRuIcon.classList.add('button-selected');
+        buttonEnIcon.classList.remove('button-selected');
         greetingText = greetingTranslation.ru;
         getWeather();
         name.placeholder = 'Как Вас зовут?';

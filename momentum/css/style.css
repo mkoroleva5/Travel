@@ -487,10 +487,17 @@ body {
 
 .button-en,
 .button-ru {
+  opacity: 0;
+}
+
+.button-en-icon,
+.button-ru-icon {
+  display: flex;
+  justify-content: center;
   width: 70px;
   height: 40px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   background-color:  white;
   color:  rgb(137, 131, 175);
   border: 3px solid  rgb(137, 131, 175);
@@ -498,18 +505,18 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin: 10px;
-  
+  padding-top: 5px;
 }
 
-.button-en:hover,
-.button-ru:hover {
+.button-en-icon:hover,
+.button-ru-icon:hover {
   opacity: 1;
   transform: scale(1.1);
   transition: 0.2s;
 }
 
-.button-en:active,
-.button-ru:active {
+.button-en-icon:active,
+.button-ru-icon:active {
   transform: scale(1);
 }
 
