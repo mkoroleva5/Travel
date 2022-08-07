@@ -123,7 +123,6 @@ body {
   background-image: url("../assets/svg/pause.svg");
 }
 
-
 .item-active {
   color: #C5B358;
 }
@@ -529,7 +528,22 @@ body {
   transform: scale(1);
 }
 
+.show {
+  transform: translateY(0);
+  opacity: 1;
+  transition: 0.5s;
+}
 
+.hide {
+  transform: translateY(20%);
+  opacity: 0;
+  transition: 0.5s;
+  cursor: default;
+}
+
+.hide:hover {
+  opacity: 0;
+}
 
 @media (max-width: 768px) {
   .time {

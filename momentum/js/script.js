@@ -452,64 +452,120 @@ const state = {
 
 const settingsItems = document.querySelectorAll('.settings-item');
 const checkboxIcon = document.querySelectorAll('.checkbox-icon');
+const timeShowButton = settingsItems[0];
+const dateShowButton = settingsItems[1];
+const greetingShowButton = settingsItems[2];
+const quoteShowButton = settingsItems[3];
+const weatherShowButton = settingsItems[4];
+const playerShowButton = settingsItems[5];
 
-for (let i=0; i<settingsItems.length; i++) {
-    settingsItems[i].addEventListener('click', () => {
-        checkboxIcon[i].classList.toggle('open');
-        checkboxIcon[i].classList.toggle('closed');
-        if (i === 0) {
-            time.classList.toggle('invisible');
-            time.style.transition = '0.5s';
-        } else if (i === 1) {
-            date.classList.toggle('invisible');
-            date.style.transition = '0.5s';
-        } else if (i === 2) {
-            greeting.classList.toggle('invisible');
-            name.classList.toggle('invisible');
-            greeting.style.transition = '0.5s';
-            name.style.transition = '0.5s';
-        } else if (i === 3) {
-            quote.classList.toggle('invisible');
-            author.classList.toggle('invisible');
-            changeQuoteButton.classList.toggle('invisible');
-            quote.style.transition = '0.5s';
-            author.style.transition = '0.5s';
-            changeQuoteButton.style.transition = '0.5s';
-        } else if (i === 4) {
-            weather.classList.toggle('invisible');
-            weather.style.transition = '0.5s';
-        } else if (i === 5) {
-           player.classList.toggle('invisible');
-           player.style.transition = '0.5s';
-        }    
-    })
-}
-
-/*function setLocalStorageSettings() {
-    settingsItems[0].addEventListener('change', () => {
-        if(settingsItems[0].checked) {
-            localStorage.setItem('show-time', settingsItems[0].value='on');
-        } else {
-            localStorage.setItem('show-time', settingsItems[0].value='off');
-        }
-    })
-}
-
-function getLocalStorageSettings() {
-    if (localStorage.getItem('show-time') === 'off') {
-        time.classList.add('invisible');
-        checkboxIcon[0].classList.remove('open');
-        checkboxIcon[0].classList.add('closed');
+function changeHideShow () {
+    if (settingsItems[0].checked == true) {
+        time.classList.remove('hide');
+        time.classList.add('show');
     } else {
-        time.classList.remove('invisible');
-        checkboxIcon[0].classList.add('open');
-        checkboxIcon[0].classList.remove('closed');
+        time.classList.add('hide');
+        time.classList.remove('show');
     }
+    
+    if (settingsItems[1].checked == true) {
+        date.classList.remove('hide');
+        date.classList.add('show');
+    } else {
+        date.classList.add('hide');
+        date.classList.remove('show');
+    }
+    
+    if (settingsItems[2].checked == true) {
+        greeting.classList.remove('hide');
+        greeting.classList.add('show');
+        name.classList.remove('hide');
+        name.classList.add('show');
+    } else {
+        greeting.classList.add('hide');
+        greeting.classList.remove('show');
+        name.classList.add('hide');
+        name.classList.remove('show');
+    }
+    
+    if (settingsItems[3].checked == true) {
+        quote.classList.remove('hide');
+        quote.classList.add('show');
+        author.classList.remove('hide');
+        author.classList.add('show');
+        changeQuoteButton.classList.remove('hide');
+        changeQuoteButton.classList.add('show');
+    } else {
+        quote.classList.add('hide');
+        quote.classList.remove('show');
+        author.classList.add('hide');
+        author.classList.remove('show');
+        changeQuoteButton.classList.add('hide');
+        changeQuoteButton.classList.remove('show');
+    }
+    
+    if (settingsItems[4].checked == true) {
+        weather.classList.remove('hide');
+        weather.classList.add('show');
+    } else {
+        weather.classList.add('hide');
+        weather.classList.remove('show');
+    }
+    
+    if (settingsItems[5].checked == true) {
+       player.classList.remove('hide');
+       player.classList.add('show');
+    } else {
+        player.classList.add('hide');
+        player.classList.remove('show');
+    }      
 }
 
-window.addEventListener('beforeunload', setLocalStorageSettings);
-window.addEventListener('load', getLocalStorageSettings);
-*/
+function changeShow() {
+    for (let i = 0; i < settingsItems.length; i++) {
+        if (settingsItems[i].checked == true) {
+            checkboxIcon[i].classList.add('open');
+            checkboxIcon[i].classList.remove('closed');
+        } else {
+            checkboxIcon[i].classList.remove('open');
+            checkboxIcon[i].classList.add('closed');
+        }
+        settingsItems[i].addEventListener('change', () => {
+            changeHideShow();
+            changeShow();
+        });
+    }    
+}
+changeShow();
+
+function setShow() {
+    for (let i = 0; i < settingsItems.length; i++) {
+        if (settingsItems[i].checked) settingsItems[i].value = 'on'
+        else settingsItems[i].value = 'off'
+    }
+    localStorage.setItem('time-show', timeShowButton.value);
+    localStorage.setItem('date-show', dateShowButton.value);
+    localStorage.setItem('greeting-show', greetingShowButton.value);
+    localStorage.setItem('quote-show', quoteShowButton.value);
+    localStorage.setItem('weather-show', weatherShowButton.value);
+    localStorage.setItem('player-show', playerShowButton.value);
+}
+
+function getShow() {
+    localStorage.getItem('time-show') == 'on' ? timeShowButton.checked = true : timeShowButton.checked = false;
+    localStorage.getItem('date-show') == 'on' ? dateShowButton.checked = true : dateShowButton.checked = false;
+    localStorage.getItem('greeting-show') == 'on' ? greetingShowButton.checked = true : greetingShowButton.checked = false;
+    localStorage.getItem('quote-show') == 'on' ? quoteShowButton.checked = true : quoteShowButton.checked = false;
+    localStorage.getItem('weather-show') == 'on' ? weatherShowButton.checked = true : weatherShowButton.checked = false;
+    localStorage.getItem('player-show') == 'on' ? playerShowButton.checked = true : playerShowButton.checked = false;
+}
+
+window.addEventListener('beforeunload', setShow);
+window.addEventListener('load', () => {
+    getShow();
+    changeShow();
+    changeHideShow();
+});
 
 // 10.2. Language settings
 
@@ -554,7 +610,6 @@ function setLanguage() {
         if (buttonEN.checked) {
             let value = buttonEN.value;
             localStorage.setItem('language', value)
-            if (localStorage.getItem('language') == en) console.log(1);
         } else if (buttonRU.checked) {
             let value = buttonRU.value;
             localStorage.setItem('language', value)
@@ -570,7 +625,6 @@ function getLanguage() {
         buttonRU.checked = true;
         buttonEN.checked = false;
     }
-
 }
 
 window.addEventListener('beforeunload', setLanguage);
@@ -578,17 +632,3 @@ window.addEventListener('load', () => {
     getLanguage();
     changeLanguage();
 });
-
-/*
-function setLocalStorage1() {
-    localStorage.setItem('language', languageCheckbox.value);
-}
-
-function getLocalStorage1() {
-    if (localStorage.getItem('language')) languageCheckbox.value = localStorage.getItem('language');
-}
-
-window.addEventListener('beforeunload', setLocalStorage1);
-window.addEventListener('load', getLocalStorage1);
-
-console.log(languageCheckbox.checked.value)*/
