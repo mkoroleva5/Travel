@@ -20,7 +20,6 @@ function showTime() {
     setTimeout(showTime, 1000);
 }
 
-setInterval(setBg, 1000);
 setInterval(showDate, 1000);
 setInterval(showGreeting, 1000);
 setInterval(getTimeOfDay, 1000);
@@ -58,11 +57,13 @@ function showGreeting() {
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
     localStorage.setItem('city', city.value);
+    localStorage.setItem('query', query.value);
 }
 
 function getLocalStorage() {
     if (localStorage.getItem('name')) name.value = localStorage.getItem('name');
     if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
+    if (localStorage.getItem('query')) query.value = localStorage.getItem('query');
 }
 
 window.addEventListener('beforeunload', setLocalStorage);
@@ -75,6 +76,12 @@ showGreeting();
 const body = document.querySelector('body');
 const slidePrev = document.querySelector('.slide-prev');
 const slideNext = document.querySelector('.slide-next');
+const githubButton = document.querySelector('.button-github');
+const unsplashButton = document.querySelector('.button-unsplash');
+const flickrButton = document.querySelector('.button-flickr');
+const query = document.querySelector('.search-input');
+const photosCheckbox = document.querySelector('.photos-buttons');
+
 let randomNum;
 let bgNum;
 
@@ -85,15 +92,35 @@ function getRandomNum() {
 }
 getRandomNum();
 
+if(!query.value) query.value = `${timeOfDay}`;
+
+//const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${query.value}&client_id=WdjDC4JDGxFJq7ervmC4D-chh1zNIUjFE2dQvYjTzYE`;
+
 function setBg() {
-    bgNum = String(randomNum).padStart(2, '0');
-    const img = new Image();
-    img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
-    img.onload = () => {
-        body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
+    if (githubButton.checked) {
+        bgNum = String(randomNum).padStart(2, '0');
+        const img = new Image();
+        img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
+        img.onload = () => {
+            body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
+        }
+    } else if (unsplashButton.checked) {
+        async function getLinkToImage() {
+            const url =  `https://api.unsplash.com/photos/random?orientation=landscape&query=${query.value}&client_id=WdjDC4JDGxFJq7ervmC4D-chh1zNIUjFE2dQvYjTzYE`;
+            const res = await fetch(url);
+            const data = await res.json();
+            console.log(data.urls.regular)
+            const img = new Image();
+            img.src = data.urls.regular;
+            img.onload = () => {
+                body.style.backgroundImage = `url(${data.urls.regular})`;
+            }
+        }
+       getLinkToImage();
     }
 }
 setBg();
+photosCheckbox.addEventListener('change', setBg);
 
 function getSlidePrev() {
     if (randomNum === 1) {
@@ -430,9 +457,7 @@ const greetingTranslation = {
     ru: `${timeOfDayRu}`,
 };
 
-
 // 10. Settings
-
 
 // 10.1. Show settings
 
@@ -528,6 +553,8 @@ const buttonEnIcon = document.querySelector('.button-en-icon');
 const buttonRuIcon = document.querySelector('.button-ru-icon');
 const showTitle = document.querySelector('.show-title');
 const languageTitle = document.querySelector('.language-title');
+const photosTitle = document.querySelector('.photos-title');
+const searchButton = document.querySelector('.search-button');
 
 function changeLanguage() {
     if (buttonEN.checked) {
@@ -541,6 +568,8 @@ function changeLanguage() {
         getQuotes();
         showTitle.textContent = 'Show';
         languageTitle.textContent = 'Language';
+        photosTitle.textContent = 'Photos';
+        searchButton.value = 'Search';
         setDefaultCity();
         changeItemName();
     }
@@ -555,6 +584,8 @@ function changeLanguage() {
         getQuotes();
         showTitle.textContent = 'Показывать';
         languageTitle.textContent = 'Язык';
+        photosTitle.textContent = 'Обои';
+        searchButton.value = 'Поиск';
         setDefaultCity();
         changeItemName();
     }
@@ -603,3 +634,68 @@ function changeItemName() {
     }
 }
 changeItemName();
+
+// 10.3. Photos settings
+
+const githubButtonIcon = document.querySelector('.button-github-icon');
+const unsplashButtonIcon = document.querySelector('.button-unsplash-icon');
+const flickrButtonIcon = document.querySelector('.button-flickr-icon');
+
+function changePhotosCheckbox() {
+    if (githubButton.checked) {
+        githubButtonIcon.classList.add('button-selected');
+        unsplashButtonIcon.classList.remove('button-selected');
+        flickrButtonIcon.classList.remove('button-selected');
+    }
+    if (unsplashButton.checked) {
+        githubButtonIcon.classList.remove('button-selected');
+        unsplashButtonIcon.classList.add('button-selected');
+        flickrButtonIcon.classList.remove('button-selected');
+    }
+    if (flickrButton.checked) {
+        githubButtonIcon.classList.remove('button-selected');
+        unsplashButtonIcon.classList.remove('button-selected');
+        flickrButtonIcon.classList.add('button-selected');
+    }
+}
+photosCheckbox.addEventListener('change', () => {
+    changePhotosCheckbox();
+    setBg();
+});
+
+function setPhotos() {
+    if (githubButton.checked) {
+        let value = githubButton.value;
+        localStorage.setItem('api', value)
+    } else if (unsplashButton.checked) {
+        let value = unsplashButton.value;
+        localStorage.setItem('api', value)
+    } else if (flickrButton.checked) {
+        let value = flickrButton.value;
+        localStorage.setItem('api', value)
+    }
+}
+
+function getPhotos() {
+    let value = localStorage.getItem('api');
+    if (value === 'github') {
+        githubButton.checked = true;
+        unsplashButton.checked = false;
+        flickrButton.checked = false;
+    } else if (value === 'unsplash') {
+        unsplashButton.checked = true;
+        githubButton.checked = false;
+        flickrButton.checked = false;
+    } else if (value === 'flickr') {
+        flickrButton.checked = true;
+        githubButton.checked = false;
+        unsplashButton.checked = false;
+    }
+}
+
+window.addEventListener('beforeunload', setPhotos);
+window.addEventListener('load', () => {
+    getPhotos();
+    changePhotosCheckbox();
+    setBg();
+});

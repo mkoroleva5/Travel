@@ -403,7 +403,7 @@ body {
   color: black;
   background-color: white;
   border-radius: 16px;
-  opacity: 0.9;
+  opacity: 0.95;
   transition: 0.5s;
 }
 
@@ -460,7 +460,7 @@ body {
   opacity: 0;
 }
 
-.settings h2 {
+.show-title {
   margin-bottom: 10px;
 }
 
@@ -492,7 +492,7 @@ body {
   margin: 0 20px;
   left: 35%;
   width: 60%;
-  height: 35%;
+  height: 30%;
   border-bottom: 2px solid rgb(219, 219, 219);
 }
 
@@ -512,6 +512,7 @@ body {
 .button-ru-icon {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 70px;
   height: 40px;
   font-weight: bold;
@@ -523,19 +524,83 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin: 10px;
-  padding-top: 5px;
 }
 
 .button-en-icon:hover,
 .button-ru-icon:hover {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.05);
   transition: 0.2s;
 }
 
 .button-en-icon:active,
 .button-ru-icon:active {
   transform: scale(1);
+}
+
+.settings-photos {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin: 0 20px;
+  left: 35%;
+  top: 35%;
+  width: 60%;
+  height: 65%;
+}
+
+.photos-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-github,
+.button-unsplash,
+.button-flickr {
+  opacity: 0;
+}
+
+.button-github-icon,
+.button-unsplash-icon,
+.button-flickr-icon,
+.search-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 170px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 20px;
+  background-color:  white;
+  color:  rgb(137, 131, 175);
+  border: 3px solid  rgb(137, 131, 175);
+  opacity: 0.8;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.button-github-icon:hover,
+.button-unsplash-icon:hover,
+.button-flickr-icon:hover,
+.search-button:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+.button-github-icon:active,
+.button-unsplash-icon:active,
+.button-flickr-icon:active,
+.search-button:active {
+  transform: scale(1);
+}
+
+.photos-button {
+  display: flex;
+  flex-direction: row;
 }
 
 .button-selected {
@@ -545,6 +610,25 @@ body {
 
 .button-selected:hover {
   transform: scale(1);
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.search-input {
+  height: 30px;
+  padding: 3px;
+  border: 2px solid rgb(137, 131, 175, 0.5);
+  border-radius: 5px;
+}
+
+.search-button {
+  width: 70px;
+  cursor: pointer;
 }
 
 .show {
