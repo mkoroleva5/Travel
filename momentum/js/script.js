@@ -30,6 +30,7 @@ showDate();
 
 // 2. Greeting
 
+const greetingBlock = document.querySelectorAll('.greeting-container');
 const greeting = document.querySelector('.greeting');
 const name = document.querySelector('.name');
 const city = document.querySelector('.city');
@@ -130,7 +131,13 @@ const weatherDescription = document.querySelector('.weather-description');
 const wind = document.querySelector('.wind');
 const humidity = document.querySelector('.humidity');
 
-city.value = 'Minsk';
+function setDefaultCity() {
+    if (language === en && !city.value) city.value = 'Minsk'
+    else if (language === ru && !city.value) city.value = 'Минск';
+    if (language === en && city.value === 'Минск') city.value = 'Minsk';
+    else if (language === ru && city.value === 'Minsk') city.value = 'Минск';
+}
+setDefaultCity();
 
 async function getWeather() {  
     getLocalStorage();
@@ -141,7 +148,7 @@ async function getWeather() {
     } 
     if (language === ru) {
         if (!city.value) url = `https://api.openweathermap.org/data/2.5/weather?q=Минск&lang=ru&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
-        if (city.value)url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
+        if (city.value) url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=858cc72675d07ef302efd48f4b4f104d&units=metric`;
     }
     const res = await fetch(url);
     const data = await res.json(); 
@@ -166,6 +173,7 @@ city.addEventListener('change', () => {
 
 // 5. Quotes
 
+const quotesBlock = document.querySelector('.quotes-container');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 const changeQuoteButton = document.querySelector('.change-quote')
@@ -444,81 +452,33 @@ document.addEventListener('click', (event) => {
     }
 });
 
-const state = {
-    language: 'en',
-    photoSource: 'github',
-    blocks: ['time', 'date','greeting', 'quote', 'weather', 'audio', 'todolist']
-}
-
 const settingsItems = document.querySelectorAll('.settings-item');
 const checkboxIcon = document.querySelectorAll('.checkbox-icon');
-const timeShowButton = settingsItems[0];
-const dateShowButton = settingsItems[1];
-const greetingShowButton = settingsItems[2];
-const quoteShowButton = settingsItems[3];
-const weatherShowButton = settingsItems[4];
-const playerShowButton = settingsItems[5];
+const settingItemsArray = [time, date, greetingBlock, quotesBlock, weather, player];
+const setItemArray = ['time-show', 'date-show', 'greeting-show', 'quote-show', 'weather-show', 'player-show'];
 
-function changeHideShow () {
-    if (settingsItems[0].checked == true) {
-        time.classList.remove('hide');
-        time.classList.add('show');
-    } else {
-        time.classList.add('hide');
-        time.classList.remove('show');
+function changeHideShow() {
+    for (let i = 0; i < settingsItems.length; i++) {
+        if (i !== 2) {
+            if (settingsItems[i].checked == true) {
+                settingItemsArray[i].classList.remove('hide');
+                settingItemsArray[i].classList.add('show');
+            } else {
+                settingItemsArray[i].classList.add('hide');
+                settingItemsArray[i].classList.remove('show');
+            }
+        } else if (i === 2) {
+            settingItemsArray[2].forEach ((item) => {
+                if (settingsItems[i].checked == true) {
+                    item.classList.remove('hide');
+                    item.classList.add('show');
+                } else {
+                    item.classList.add('hide');
+                    item.classList.remove('show');
+                }   
+            })
+        } 
     }
-    
-    if (settingsItems[1].checked == true) {
-        date.classList.remove('hide');
-        date.classList.add('show');
-    } else {
-        date.classList.add('hide');
-        date.classList.remove('show');
-    }
-    
-    if (settingsItems[2].checked == true) {
-        greeting.classList.remove('hide');
-        greeting.classList.add('show');
-        name.classList.remove('hide');
-        name.classList.add('show');
-    } else {
-        greeting.classList.add('hide');
-        greeting.classList.remove('show');
-        name.classList.add('hide');
-        name.classList.remove('show');
-    }
-    
-    if (settingsItems[3].checked == true) {
-        quote.classList.remove('hide');
-        quote.classList.add('show');
-        author.classList.remove('hide');
-        author.classList.add('show');
-        changeQuoteButton.classList.remove('hide');
-        changeQuoteButton.classList.add('show');
-    } else {
-        quote.classList.add('hide');
-        quote.classList.remove('show');
-        author.classList.add('hide');
-        author.classList.remove('show');
-        changeQuoteButton.classList.add('hide');
-        changeQuoteButton.classList.remove('show');
-    }
-    
-    if (settingsItems[4].checked == true) {
-        weather.classList.remove('hide');
-        weather.classList.add('show');
-    } else {
-        weather.classList.add('hide');
-        weather.classList.remove('show');
-    }
-    
-    if (settingsItems[5].checked == true) {
-       player.classList.remove('hide');
-       player.classList.add('show');
-    } else {
-        player.classList.add('hide');
-        player.classList.remove('show');
-    }      
 }
 
 function changeShow() {
@@ -542,22 +502,14 @@ function setShow() {
     for (let i = 0; i < settingsItems.length; i++) {
         if (settingsItems[i].checked) settingsItems[i].value = 'on'
         else settingsItems[i].value = 'off'
+        localStorage.setItem(setItemArray[i], settingsItems[i].value);
     }
-    localStorage.setItem('time-show', timeShowButton.value);
-    localStorage.setItem('date-show', dateShowButton.value);
-    localStorage.setItem('greeting-show', greetingShowButton.value);
-    localStorage.setItem('quote-show', quoteShowButton.value);
-    localStorage.setItem('weather-show', weatherShowButton.value);
-    localStorage.setItem('player-show', playerShowButton.value);
 }
 
 function getShow() {
-    localStorage.getItem('time-show') == 'on' ? timeShowButton.checked = true : timeShowButton.checked = false;
-    localStorage.getItem('date-show') == 'on' ? dateShowButton.checked = true : dateShowButton.checked = false;
-    localStorage.getItem('greeting-show') == 'on' ? greetingShowButton.checked = true : greetingShowButton.checked = false;
-    localStorage.getItem('quote-show') == 'on' ? quoteShowButton.checked = true : quoteShowButton.checked = false;
-    localStorage.getItem('weather-show') == 'on' ? weatherShowButton.checked = true : weatherShowButton.checked = false;
-    localStorage.getItem('player-show') == 'on' ? playerShowButton.checked = true : playerShowButton.checked = false;
+    for (let i = 0; i < settingsItems.length; i++) {
+        localStorage.getItem(setItemArray[i]) == 'on' ? settingsItems[i].checked = true : settingsItems[i].checked = false;
+    }
 }
 
 window.addEventListener('beforeunload', setShow);
@@ -589,6 +541,8 @@ function changeLanguage() {
         getQuotes();
         showTitle.textContent = 'Show';
         languageTitle.textContent = 'Language';
+        setDefaultCity();
+        changeItemName();
     }
     if (buttonRU.checked) {
         language = ru;
@@ -601,6 +555,8 @@ function changeLanguage() {
         getQuotes();
         showTitle.textContent = 'Показывать';
         languageTitle.textContent = 'Язык';
+        setDefaultCity();
+        changeItemName();
     }
 }
 
@@ -632,3 +588,18 @@ window.addEventListener('load', () => {
     getLanguage();
     changeLanguage();
 });
+
+const settingsItemsName = document.querySelectorAll('.settings-item-name');
+const itemNameEn = ['Time', 'Date', 'Greeting', 'Quotes', 'Weather', 'Audio'];
+const itemNameRu = ['Время', 'Дата', 'Приветствие', 'Цитаты', 'Погода', 'Плеер'];
+
+function changeItemName() {
+    for (let i = 0; i < settingsItemsName.length; i++) {
+        if (language === en) {
+            settingsItemsName[i].innerHTML = itemNameEn[i];
+        } else if (language === ru) {
+            settingsItemsName[i].innerHTML = itemNameRu[i];
+        }
+    }
+}
+changeItemName();

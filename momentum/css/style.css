@@ -346,6 +346,7 @@ body {
   height: 30vh;
   min-height: 160px;  
   padding: 20px;
+  overflow: hidden;
 }
 
 .change-quote {
@@ -431,6 +432,16 @@ body {
   align-items: flex-start;
 }
 
+.settings-checkbox label {
+  display: flex;
+  flex-direction: row;
+}
+
+.settings-item-name {
+  display: flex;
+  align-items: center;
+}
+
 .settings-item {
   flex-direction: row;
   margin-bottom: 10px;
@@ -449,7 +460,7 @@ body {
   position: absolute;
   width: 30px;
   height: 30px;
-  margin-top: 8px;
+  margin-top: 4px;
   background-size: 30px;
   background-repeat: no-repeat;
 }
