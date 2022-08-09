@@ -93,9 +93,16 @@ function getRandomNum() {
 getRandomNum();
 
 if(!query.value) query.value = `${timeOfDay}`;
+let flickrRandomNumber;
+function getFlickrRandomNumber() {
+    let min = Math.ceil(1);
+    let max;
+    max = Math.floor(100);
+    return flickrRandomNumber = Math.floor(Math.random() * (max - min)) + min;
+} 
 
 //const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${query.value}&client_id=WdjDC4JDGxFJq7ervmC4D-chh1zNIUjFE2dQvYjTzYE`;
-
+//`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=bd2f65d367957bb26cca5417ccc60c2e&tags=${query.value}&extras=url_l&format=json&nojsoncallback=1`
 function setBg() {
     if (githubButton.checked) {
         bgNum = String(randomNum).padStart(2, '0');
@@ -109,7 +116,6 @@ function setBg() {
             const url =  `https://api.unsplash.com/photos/random?orientation=landscape&query=${query.value}&client_id=WdjDC4JDGxFJq7ervmC4D-chh1zNIUjFE2dQvYjTzYE`;
             const res = await fetch(url);
             const data = await res.json();
-            console.log(data.urls.regular)
             const img = new Image();
             img.src = data.urls.regular;
             img.onload = () => {
@@ -118,9 +124,21 @@ function setBg() {
         }
        getLinkToImage();
     }
+    else if (flickrButton.checked) {
+        getFlickrRandomNumber();
+        async function getLinkToImage() {
+            const url =  `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=bd2f65d367957bb26cca5417ccc60c2e&tags=${query.value}&extras=url_l&format=json&nojsoncallback=1`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const img = new Image();
+            img.src = data.photos.photo[flickrRandomNumber].url_l;
+            img.onload = () => {
+                body.style.backgroundImage = `url(${data.photos.photo[flickrRandomNumber].url_l})`;
+            }
+        }
+       getLinkToImage();
+    }
 }
-setBg();
-photosCheckbox.addEventListener('change', setBg);
 
 function getSlidePrev() {
     if (randomNum === 1) {
