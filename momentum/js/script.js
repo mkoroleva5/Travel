@@ -101,8 +101,6 @@ function getFlickrRandomNumber() {
     return flickrRandomNumber = Math.floor(Math.random() * (max - min)) + min;
 } 
 
-//const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${query.value}&client_id=WdjDC4JDGxFJq7ervmC4D-chh1zNIUjFE2dQvYjTzYE`;
-//`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=bd2f65d367957bb26cca5417ccc60c2e&tags=${query.value}&extras=url_l&format=json&nojsoncallback=1`
 function setBg() {
     if (githubButton.checked) {
         bgNum = String(randomNum).padStart(2, '0');
@@ -717,3 +715,196 @@ window.addEventListener('load', () => {
     changePhotosCheckbox();
     setBg();
 });
+
+// 11. ToDo list
+
+const listIcon = document.querySelector('.todo-list-icon');
+const listIconButton = document.querySelector('.todo-list-name');
+const list = document.querySelector('.todo-list-wrapper');
+const select = document.querySelector('.select');
+const selectBox = document.querySelector('.select-box');
+const label = document.querySelector('.label-description');
+const optionToDo = document.querySelector('.option1');
+const optionDone = document.querySelector('.option2');
+
+function openList() {
+    listIcon.classList.toggle('rotate360');
+    list.classList.toggle('visible');
+    list.classList.toggle('invisible');
+}
+listIconButton.addEventListener('click', openList);
+
+select.addEventListener('click', () => {
+    selectBox.classList.toggle('open-box');
+})
+
+window.addEventListener('click', (event) => {
+    if (!event.composedPath().includes(select)) {
+        selectBox.classList.remove('open-box');
+    }
+});
+
+label.innerHTML = select.value;
+select.addEventListener('change', (e) => {
+    label.innerHTML = e.target.value;
+});
+
+listIconButton.addEventListener('click', () => {
+    if (list.classList.contains('visible')) localStorage.setItem('todo-list', 'open');
+    else localStorage.setItem('todo-list', 'closed');
+});
+
+function setLabel() {
+    if (select.value === 'ToDo') localStorage.setItem('label', select.value)
+    else if (select.value === 'Done') localStorage.setItem('label', select.value);
+}
+
+function getLabel() {
+    let value = localStorage.getItem('label');
+    if (value === 'ToDo') {
+        optionToDo.selected = true;
+        optionDone.selected = false;
+        label.innerHTML = select.value;
+    } else if (value === 'Done') {
+        optionDone.selected = true;
+        optionToDo.selected = false;
+        label.innerHTML = select.value;
+    }
+    if (localStorage.getItem('todo-list') === 'open') {
+        list.classList.add('visible');
+        list.classList.remove('invisible');
+    } else if (localStorage.getItem('todo-list') === 'closed') {
+        list.classList.remove('visible');
+        list.classList.add('invisible');
+    }
+}
+
+window.addEventListener('beforeunload', setLabel);
+window.addEventListener('load', () => {
+    getLabel();
+    getTasks();
+});
+
+
+/*
+addTaskButton.addEventListener('click', () => {
+    if(newTask.value.length === 0) {
+        newTask.classList.add('empty-input')
+    }
+    newTask.addEventListener('animationend', () => {
+        newTask.classList.remove('empty-input')
+    })
+    if(newTask.value.length !== 0){
+        tasksList.innerHTML += `
+            <label class="task-wrapper">
+                <input type="checkbox" class="task">
+                ${newTask.value}
+                <button class="delete">
+                    <p>+</p>
+                </button>
+            </label>
+        `;
+        
+        list.style.height = list.offsetHeight + 40 + 'px';
+    
+        let currentTasks = document.querySelectorAll('.delete');
+        let taskBlock = document.querySelectorAll('.task-wrapper');
+        for(let i = 0; i < currentTasks.length; i++) {
+            currentTasks[i].addEventListener('click', () => {
+                taskBlock[i].remove();
+                list.style.height = list.offsetHeight - 40 + 'px';
+            })
+        }
+    }
+})
+
+tasksList.addEventListener('change', () => {
+    let task = document.querySelectorAll('.task');
+    let taskBlock = document.querySelectorAll('.task-wrapper');
+    for(let i = 0; i < task.length; i++) {
+        if (task[i].checked == true) {
+            taskBlock[i].classList.add('task-done')
+        } else {
+            taskBlock[i].classList.remove('task-done')
+        }
+    } 
+})
+*/
+const addTaskButton = document.getElementById('push');
+const newTask = document.querySelector('.new-todo-input');
+const tasksList = document.querySelector('.tasks');
+
+let tasks;
+!localStorage.tasks ? tasks = [] : tasks = JSON.parse(localStorage.getItem('tasks'));
+
+function getTasks() {
+    let height = localStorage.getItem('todo-list-height');
+    list.style.height = parseInt(height) + 40 + 'px';
+}
+getTasks();
+
+function Task(description) {
+    this.description = description;
+    this.done = false;
+}
+
+function createTemplate(task, index) {
+    return `
+        <div class="todo-item">
+            <input class="task-checkbox ${task.done ? 'checked' : ''}" type="checkbox" ${task.done ? 'checked' : ''}>
+            <div class="task-description ${task.done ? 'checked-text' : ''}">${task.description}</div>
+            <button class="delete ${task.done ? 'checked' : ''}">+</button>
+        </div>
+    `
+}
+
+function addTask() {
+    tasksList.innerHTML = "";
+    if (tasks.length > 0) {
+        tasks.forEach((item, index) => {
+            tasksList.innerHTML += createTemplate(item, index);   
+        })
+    }
+}
+addTask();
+
+let checkboxes = document.querySelectorAll('.task-checkbox');
+let descriptions = document.querySelectorAll('.task-description');
+let deleteButtons = document.querySelectorAll('.delete');
+
+for(let i=0;i<checkboxes.length;i++) {
+    checkboxes[i].addEventListener('click', () => {
+        tasks[i].done = !tasks[i].done;
+        if(tasks[i].done == true) {
+            descriptions[i].classList.add('checked-text');
+            deleteButtons[i].classList.add('checked');
+            checkboxes[i].classList.add('checked');
+        } else if (tasks[i].done == false) {
+            descriptions[i].classList.remove('checked-text');
+            deleteButtons[i].classList.remove('checked');
+            checkboxes[i].classList.remove('checked');
+        } 
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    })
+    
+}
+
+function setTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('todo-list-height', list.style.height);
+}
+
+addTaskButton.addEventListener('click', () => {
+    if(newTask.value.length === 0) {
+        newTask.classList.add('empty-input');
+        newTask.addEventListener('animationend', () => {
+            newTask.classList.remove('empty-input')
+        });
+    } else if(newTask.value.length !== 0){
+        tasks.push(new Task(newTask.value));
+        setTasks();
+        addTask();
+        list.style.height = list.offsetHeight + 40 + 'px';
+        newTask.value = '';
+    }
+})

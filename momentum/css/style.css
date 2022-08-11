@@ -415,16 +415,6 @@ body {
   height: 100%;
 }
 
-.visible {
-  display: block;
-  transition: 0.5s;
-}
-
-.invisible {
-  display: none;
-  transition: 0.5s;
-}
-
 .settings-show {
   display: flex;
   flex-direction: column;
@@ -631,16 +621,17 @@ body {
 }
 
 .show {
+  visibility: visible;
   transform: translateY(0);
   opacity: 1;
   transition: 0.5s;
 }
 
 .hide {
+  visibility: hidden;
   transform: translateY(20%);
   opacity: 0;
   transition: 0.5s;
-  cursor: default;
 }
 
 .hide:hover {
@@ -669,6 +660,255 @@ body {
   opacity: 1;
   transform: translateY(-1px);
   transition: 0.2s;
+}
+
+.todo-list-name {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+  gap: 5px;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.todo-list-name:hover {
+  opacity: 1;
+}
+
+.rotate360 {
+  transform: rotate(360deg);
+  transition: 0.5s;
+}
+
+.todo-list-icon {
+  width: 20px;
+  height: 20px;
+  background-image: url(/assets/svg/checkbox-icon.svg);
+  background-size: 20px;
+  transition: 0.2s;
+}
+
+.todo-list-wrapper {
+  display: flex;
+  position: absolute;
+  bottom: 100px;
+  right: 20px;
+  width: 20%;
+  height: 15%;
+  max-height: 80%;
+  border-radius: 16px;
+  background-color: white;
+  opacity: 0.9;
+  transition: 0.2s;
+  overflow: hidden;
+}
+
+.todo-list {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.select-box {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  max-width: 20em;
+  margin: 15px 20px 0 20px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.select {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 30%;
+  padding: 5px 0;
+  height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.select-box-label {
+  background: white;
+}
+
+.label {
+  position: relative;
+  color: rgb(137, 131, 175);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: start;
+  vertical-align: middle;
+  width: 30%;
+  height: 30px;
+  padding: 5px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.open-box .label::after {
+  content: "▲";
+}
+
+.label::after {
+ content: "▼";
+ color: rgb(137, 131, 175);
+ font-size: 12px;
+ position: absolute;
+ left: 40px;
+ top: 5px;
+ padding: 5px 15px;
+}
+
+.select option {
+  font-size: 16px;
+  background-color: rgba(232, 232, 232, 0.8);
+  color:rgb(137, 131, 175);
+}
+
+.new-todo {
+  display: flex;
+  position: absolute;
+  bottom: 15px;
+  margin: 15px;
+  width: 100%;
+  gap: 10px;
+}
+
+.new-todo-input {
+  width: 70%;
+  height: 30px;
+  padding: 5px;
+  border: none;
+  font-size: 16px;
+  border-bottom: 1px solid rgb(137, 131, 175, 0.3);
+}
+
+.new-todo-input:focus{
+  outline: 0;
+  border-bottom: 1px solid rgb(137, 131, 175, 1);
+}
+
+#push,
+.delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 20px;
+  background-color:  white;
+  color:  rgb(137, 131, 175);
+  border: 3px solid  rgb(137, 131, 175);
+  opacity: 0.8;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#push {
+  position: absolute;
+  right: 30px;
+}
+
+#push:hover,
+.delete:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+.delete:hover {
+  transform: rotate(45deg);
+}
+
+#push:active,
+.delete:active {
+  transform: scale(1);
+}
+
+.delete {
+  border: none;
+  position: absolute;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.tasks {
+  border-radius: 10px;
+  width: 100%;
+  position: relative;
+  background-color: #ffffff;
+  padding: 10px 15px;
+}
+
+.todo-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0;
+  width: 100%;
+  height: 30px;
+  gap: 5px;
+  color:rgb(137, 131, 175);
+  border-bottom: 1px solid rgb(137, 131, 175, 0.3);
+  overflow: hidden;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+.task-checkbox {
+  width: 25px;
+  height: 20px;
+}
+
+.checked-text {
+  text-decoration: line-through;
+  opacity: 0.3;
+}
+
+.checked {
+  opacity: 0.3;
+}
+
+.unchecked {
+  text-decoration: none;
+  opacity: 1;
+}
+
+@keyframes empty-input {
+  0% {background-color:#f6ebb3;}
+  25% {background-color:#fcf2bd;}
+  50% {background-color:#fcf4cd;}
+  75% {background-color:#fffade;}
+  100.0% {background-color:#fffced;}
+}
+
+.empty-input {
+  animation-name: empty-input;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+.visible {
+  display: block;
+  transition: 0.5s;
+}
+
+.invisible {
+  display: none;
+  transition: 0.5s;
 }
 
 @media (max-width: 768px) {
