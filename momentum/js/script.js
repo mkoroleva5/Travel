@@ -581,6 +581,7 @@ function changeLanguage() {
         getWeather();
         name.placeholder = 'What\'s your name?';
         city.placeholder = 'Where are you?';
+        newTask.placeholder = 'New task';
         getQuotes();
         showTitle.textContent = 'Show';
         languageTitle.textContent = 'Language';
@@ -597,6 +598,7 @@ function changeLanguage() {
         getWeather();
         name.placeholder = 'Как Вас зовут?';
         city.placeholder = 'Где Вы?';
+        newTask.placeholder = 'Новая задача';
         getQuotes();
         showTitle.textContent = 'Показывать';
         languageTitle.textContent = 'Язык';
@@ -747,6 +749,8 @@ window.addEventListener('click', (event) => {
 label.innerHTML = select.value;
 select.addEventListener('change', (e) => {
     label.innerHTML = e.target.value;
+    if (e.target.value === 'ToDo') select[0].selected;
+    if (e.target.value === 'Done') select[1].selected;
 });
 
 listIconButton.addEventListener('click', () => {
@@ -783,7 +787,9 @@ window.addEventListener('beforeunload', setLabel);
 window.addEventListener('load', () => {
     getLabel();
     getTasks();
+    doneList();
 });
+
 
 
 /*
@@ -839,7 +845,7 @@ let tasks;
 
 function getTasks() {
     let height = localStorage.getItem('todo-list-height');
-    list.style.height = parseInt(height) + 40 + 'px';
+    list.style.height = height;
 }
 getTasks();
 
@@ -850,44 +856,76 @@ function Task(description) {
 
 function createTemplate(task, index) {
     return `
-        <div class="todo-item">
-            <input class="task-checkbox ${task.done ? 'checked' : ''}" type="checkbox" ${task.done ? 'checked' : ''}>
-            <div class="task-description ${task.done ? 'checked-text' : ''}">${task.description}</div>
-            <button class="delete ${task.done ? 'checked' : ''}">+</button>
+        <div class="todo-item ${task.done ? 'checked' : ''}">
+            <input class="task-checkbox" type="checkbox" ${task.done ? 'checked' : ''}>
+            <div class="task-description">${task.description}</div>
+            <button class="delete">+</button>
         </div>
     `
 }
 
+
+function filterTasks() {
+    const activeTasks = tasks.length && tasks.filter(item => item.done == false);
+    const doneTasks = tasks.length && tasks.filter(item => item.done == true);
+    tasks = [...activeTasks, ...doneTasks]
+}
+
+let taskItems = [];
 function addTask() {
     tasksList.innerHTML = "";
     if (tasks.length > 0) {
+        filterTasks();
         tasks.forEach((item, index) => {
             tasksList.innerHTML += createTemplate(item, index);   
         })
     }
+    let checkboxes = document.querySelectorAll('.task-checkbox');
+    let deleteButtons = document.querySelectorAll('.delete');
+    for(let i = 0; i < tasks.length; i++) {
+        checkboxes[i].addEventListener('click', () => {
+            tasks[i].done = !tasks[i].done;
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            taskItems = document.querySelectorAll('.todo-item');
+            if(tasks[i].done === true) {
+                taskItems[i].classList.add('checked');
+            } else if (tasks[i].done === false) {
+                taskItems[i].classList.remove('checked');
+            }
+        })
+    }
+    for(let i = 0; i < tasks.length; i++) {
+        deleteButtons[i].addEventListener('click', () => {
+            tasks.splice(i, 1);
+            addTask();
+            list.style.height = list.offsetHeight - 35 + 'px';
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            localStorage.setItem('todo-list-height', list.style.height);
+        })
+    }    
 }
 addTask();
 
-let checkboxes = document.querySelectorAll('.task-checkbox');
-let descriptions = document.querySelectorAll('.task-description');
-let deleteButtons = document.querySelectorAll('.delete');
-
-for(let i=0;i<checkboxes.length;i++) {
-    checkboxes[i].addEventListener('click', () => {
-        tasks[i].done = !tasks[i].done;
-        if(tasks[i].done == true) {
-            descriptions[i].classList.add('checked-text');
-            deleteButtons[i].classList.add('checked');
-            checkboxes[i].classList.add('checked');
-        } else if (tasks[i].done == false) {
-            descriptions[i].classList.remove('checked-text');
-            deleteButtons[i].classList.remove('checked');
-            checkboxes[i].classList.remove('checked');
-        } 
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    })
-    
+function doneList() {
+    if (select.value === 'Done') {
+        const activeTasks = tasks.length && tasks.filter(item => item.done == false);
+        const doneTasks = tasks.length && tasks.filter(item => item.done == true);
+        taskItems = document.querySelectorAll('.todo-item');
+        for (let i = activeTasks.length-1; i >= 0; i--) {
+            taskItems[i].classList.add('invisible');
+        }
+    } else if (select.value === 'ToDo') {
+        const activeTasks = tasks.length && tasks.filter(item => item.done == false);
+        const doneTasks = tasks.length && tasks.filter(item => item.done == true);
+        taskItems = document.querySelectorAll('.todo-item');
+        for (let i = activeTasks.length-1; i >= 0; i--) {
+            taskItems[i].classList.remove('invisible');
+        }
+    }
 }
+select.addEventListener('change', doneList);
+
+
 
 function setTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -904,7 +942,8 @@ addTaskButton.addEventListener('click', () => {
         tasks.push(new Task(newTask.value));
         setTasks();
         addTask();
-        list.style.height = list.offsetHeight + 40 + 'px';
+        list.style.height = list.offsetHeight + 35 + 'px';
+        localStorage.setItem('todo-list-height', list.style.height);
         newTask.value = '';
     }
 })

@@ -865,26 +865,17 @@ body {
   border-bottom: 1px solid rgb(137, 131, 175, 0.3);
   overflow: hidden;
   word-wrap: break-word;
-  cursor: pointer;
 }
 
 .task-checkbox {
   width: 25px;
   height: 20px;
-}
-
-.checked-text {
-  text-decoration: line-through;
-  opacity: 0.3;
+  cursor: pointer;
 }
 
 .checked {
+  text-decoration: line-through;
   opacity: 0.3;
-}
-
-.unchecked {
-  text-decoration: none;
-  opacity: 1;
 }
 
 @keyframes empty-input {
