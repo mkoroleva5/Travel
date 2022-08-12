@@ -498,7 +498,9 @@ document.addEventListener('click', (event) => {
 const settingsItems = document.querySelectorAll('.settings-item');
 const checkboxIcon = document.querySelectorAll('.checkbox-icon');
 const settingItemsArray = [time, date, greetingBlock, quotesBlock, weather, player, list];
-const setItemArray = ['time-show', 'date-show', 'greeting-show', 'quote-show', 'weather-show', 'player-show'];
+const setItemArray = ['time-show', 'date-show', 'greeting-show', 'quote-show', 'weather-show', 'player-show', 'todo-list-show'];
+
+
 
 function changeHideShow() {
     for (let i = 0; i < settingsItems.length; i++) {
@@ -533,7 +535,7 @@ function changeHideShow() {
                 listIconButton.classList.remove('show');
             }   
         }
-    }
+    }   
 }
 
 function changeShow() {
@@ -551,6 +553,7 @@ function changeShow() {
         });
     }    
 }
+changeHideShow();
 changeShow();
 
 function setShow() {
