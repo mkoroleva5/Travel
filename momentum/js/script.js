@@ -100,7 +100,7 @@ function getFlickrRandomNumber() {
     max = Math.floor(100);
     return flickrRandomNumber = Math.floor(Math.random() * (max - min)) + min;
 } 
-
+githubButton.checked = true;
 function setBg() {
     if (githubButton.checked) {
         bgNum = String(randomNum).padStart(2, '0');
@@ -501,6 +501,11 @@ const settingItemsArray = [time, date, greetingBlock, quotesBlock, weather, play
 const setItemArray = ['time-show', 'date-show', 'greeting-show', 'quote-show', 'weather-show', 'player-show', 'todo-list-show'];
 
 
+for (let i = 0; i < settingsItems.length; i++) {
+    if (localStorage.getItem(setItemArray[i]) == null) localStorage.setItem(setItemArray[i], 'on');
+    changeHideShow();
+    changeShow();
+}
 
 function changeHideShow() {
     for (let i = 0; i < settingsItems.length; i++) {
@@ -550,6 +555,7 @@ function changeShow() {
         settingsItems[i].addEventListener('change', () => {
             changeHideShow();
             changeShow();
+            setShow()
         });
     }    
 }
