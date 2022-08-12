@@ -478,7 +478,9 @@ const greetingTranslation = {
 // 10.1. Show settings
 
 const settingsIcon = document.querySelector('.settings-icon');
-const settings = document.querySelector('.settings-wrapper')
+const settings = document.querySelector('.settings-wrapper');
+const listIconButton = document.querySelector('.todo-list-name');
+const list = document.querySelector('.todo-list-wrapper');
 
 settingsIcon.addEventListener('click', () =>{
     settingsIcon.classList.toggle('rotate');
@@ -495,12 +497,12 @@ document.addEventListener('click', (event) => {
 
 const settingsItems = document.querySelectorAll('.settings-item');
 const checkboxIcon = document.querySelectorAll('.checkbox-icon');
-const settingItemsArray = [time, date, greetingBlock, quotesBlock, weather, player];
+const settingItemsArray = [time, date, greetingBlock, quotesBlock, weather, player, list];
 const setItemArray = ['time-show', 'date-show', 'greeting-show', 'quote-show', 'weather-show', 'player-show'];
 
 function changeHideShow() {
     for (let i = 0; i < settingsItems.length; i++) {
-        if (i !== 2) {
+        if (i !== 2 && i !== 6) {
             if (settingsItems[i].checked == true) {
                 settingItemsArray[i].classList.remove('hide');
                 settingItemsArray[i].classList.add('show');
@@ -518,7 +520,19 @@ function changeHideShow() {
                     item.classList.remove('show');
                 }   
             })
-        } 
+        } else if (i === 6) {
+            if (settingsItems[i].checked == true) {
+                list.classList.remove('hide');
+                list.classList.add('show');
+                listIconButton.classList.remove('hide');
+                listIconButton.classList.add('show');
+            } else {
+                list.classList.add('hide');
+                list.classList.remove('show');
+                listIconButton.classList.add('hide');
+                listIconButton.classList.remove('show');
+            }   
+        }
     }
 }
 
@@ -571,6 +585,9 @@ const showTitle = document.querySelector('.show-title');
 const languageTitle = document.querySelector('.language-title');
 const photosTitle = document.querySelector('.photos-title');
 const searchButton = document.querySelector('.search-button');
+const optionToDo = document.querySelector('.option1');
+const optionDone = document.querySelector('.option2');
+const todoListTitle = document.querySelector('.todo-list-title');
 
 function changeLanguage() {
     if (buttonEN.checked) {
@@ -589,6 +606,9 @@ function changeLanguage() {
         searchButton.value = 'Search';
         setDefaultCity();
         changeItemName();
+        optionToDo.innerHTML = 'ToDo';
+        optionDone.innerHTML = 'Done';
+        todoListTitle.textContent = 'ToDo List'
     }
     if (buttonRU.checked) {
         language = ru;
@@ -606,6 +626,9 @@ function changeLanguage() {
         searchButton.value = 'Поиск';
         setDefaultCity();
         changeItemName();
+        optionToDo.innerHTML = 'Задачи';
+        optionDone.innerHTML = 'Выполненные';
+        todoListTitle.textContent = 'Список дел'
     }
 }
 
@@ -639,8 +662,8 @@ window.addEventListener('load', () => {
 });
 
 const settingsItemsName = document.querySelectorAll('.settings-item-name');
-const itemNameEn = ['Time', 'Date', 'Greeting', 'Quotes', 'Weather', 'Audio'];
-const itemNameRu = ['Время', 'Дата', 'Приветствие', 'Цитаты', 'Погода', 'Плеер'];
+const itemNameEn = ['Time', 'Date', 'Greeting', 'Quotes', 'Weather', 'Audio', 'ToDo List'];
+const itemNameRu = ['Время', 'Дата', 'Приветствие', 'Цитаты', 'Погода', 'Плеер', 'Список дел'];
 
 function changeItemName() {
     for (let i = 0; i < settingsItemsName.length; i++) {
@@ -721,13 +744,9 @@ window.addEventListener('load', () => {
 // 11. ToDo list
 
 const listIcon = document.querySelector('.todo-list-icon');
-const listIconButton = document.querySelector('.todo-list-name');
-const list = document.querySelector('.todo-list-wrapper');
 const select = document.querySelector('.select');
 const selectBox = document.querySelector('.select-box');
 const label = document.querySelector('.label-description');
-const optionToDo = document.querySelector('.option1');
-const optionDone = document.querySelector('.option2');
 
 function openList() {
     listIcon.classList.toggle('rotate360');
@@ -749,7 +768,8 @@ window.addEventListener('click', (event) => {
 label.innerHTML = select.value;
 select.addEventListener('change', (e) => {
     label.innerHTML = e.target.value;
-    if (e.target.value === 'ToDo') select[0].selected;
+    if (e.target.value === 'ToDo')
+        select[0].selected;
     if (e.target.value === 'Done') select[1].selected;
 });
 
@@ -790,52 +810,6 @@ window.addEventListener('load', () => {
     doneList();
 });
 
-
-
-/*
-addTaskButton.addEventListener('click', () => {
-    if(newTask.value.length === 0) {
-        newTask.classList.add('empty-input')
-    }
-    newTask.addEventListener('animationend', () => {
-        newTask.classList.remove('empty-input')
-    })
-    if(newTask.value.length !== 0){
-        tasksList.innerHTML += `
-            <label class="task-wrapper">
-                <input type="checkbox" class="task">
-                ${newTask.value}
-                <button class="delete">
-                    <p>+</p>
-                </button>
-            </label>
-        `;
-        
-        list.style.height = list.offsetHeight + 40 + 'px';
-    
-        let currentTasks = document.querySelectorAll('.delete');
-        let taskBlock = document.querySelectorAll('.task-wrapper');
-        for(let i = 0; i < currentTasks.length; i++) {
-            currentTasks[i].addEventListener('click', () => {
-                taskBlock[i].remove();
-                list.style.height = list.offsetHeight - 40 + 'px';
-            })
-        }
-    }
-})
-
-tasksList.addEventListener('change', () => {
-    let task = document.querySelectorAll('.task');
-    let taskBlock = document.querySelectorAll('.task-wrapper');
-    for(let i = 0; i < task.length; i++) {
-        if (task[i].checked == true) {
-            taskBlock[i].classList.add('task-done')
-        } else {
-            taskBlock[i].classList.remove('task-done')
-        }
-    } 
-})
-*/
 const addTaskButton = document.getElementById('push');
 const newTask = document.querySelector('.new-todo-input');
 const tasksList = document.querySelector('.tasks');
@@ -864,18 +838,10 @@ function createTemplate(task, index) {
     `
 }
 
-
-function filterTasks() {
-    const activeTasks = tasks.length && tasks.filter(item => item.done == false);
-    const doneTasks = tasks.length && tasks.filter(item => item.done == true);
-    tasks = [...activeTasks, ...doneTasks]
-}
-
 let taskItems = [];
 function addTask() {
     tasksList.innerHTML = "";
     if (tasks.length > 0) {
-        filterTasks();
         tasks.forEach((item, index) => {
             tasksList.innerHTML += createTemplate(item, index);   
         })
@@ -889,8 +855,10 @@ function addTask() {
             taskItems = document.querySelectorAll('.todo-item');
             if(tasks[i].done === true) {
                 taskItems[i].classList.add('checked');
+                doneList();
             } else if (tasks[i].done === false) {
                 taskItems[i].classList.remove('checked');
+                doneList();
             }
         })
     }
@@ -898,6 +866,7 @@ function addTask() {
         deleteButtons[i].addEventListener('click', () => {
             tasks.splice(i, 1);
             addTask();
+            doneList();
             list.style.height = list.offsetHeight - 35 + 'px';
             localStorage.setItem('tasks', JSON.stringify(tasks));
             localStorage.setItem('todo-list-height', list.style.height);
@@ -911,14 +880,14 @@ function doneList() {
         const activeTasks = tasks.length && tasks.filter(item => item.done == false);
         const doneTasks = tasks.length && tasks.filter(item => item.done == true);
         taskItems = document.querySelectorAll('.todo-item');
-        for (let i = activeTasks.length-1; i >= 0; i--) {
-            taskItems[i].classList.add('invisible');
+        for (let i = 0; i < tasks.length; i++) {
+            if (!taskItems[i].classList.contains('checked')) taskItems[i].classList.add('invisible');
         }
     } else if (select.value === 'ToDo') {
         const activeTasks = tasks.length && tasks.filter(item => item.done == false);
         const doneTasks = tasks.length && tasks.filter(item => item.done == true);
         taskItems = document.querySelectorAll('.todo-item');
-        for (let i = activeTasks.length-1; i >= 0; i--) {
+        for (let i = 0; i < tasks.length; i++) {
             taskItems[i].classList.remove('invisible');
         }
     }
