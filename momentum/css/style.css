@@ -350,7 +350,6 @@ body {
   height: 30vh;
   min-height: 160px;  
   padding: 20px;
-  overflow: hidden;
 }
 
 .quotes-container {
@@ -405,6 +404,7 @@ body {
   border-radius: 16px;
   opacity: 0.95;
   transition: 0.5s;
+  z-index: 10;
 }
 
 .settings {
@@ -923,8 +923,9 @@ body {
   }
 
   .links {
-    right: -30px;
-    bottom: -20px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
   }
 
   .todo-list-wrapper {
@@ -936,7 +937,7 @@ body {
 
   .todo-list-name {
     position: absolute;
-    bottom: 20px;
+    bottom: 50px;
     right: 10px;
   }
 }
@@ -944,14 +945,60 @@ body {
 @media (max-width: 450px) {
   .todo-list-wrapper {
     position: absolute;
-    bottom: 50px;
+    bottom: 80px;
     right: 10px;
     width: 300px;
   }
 
   .todo-list-name {
     position: absolute;
-    bottom: 20px;
+    bottom: 50px;
     right: 10px;
+  }
+
+  .time-bar {
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .greeting-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+
+  .name {
+    max-width: 90%;
+  }
+  
+  .main {
+    max-width: 450px;
+  }
+
+  .footer {
+    max-width: 450px;
+  }
+
+  .quotes-container {
+    position: absolute;
+    bottom: 80px;
+  }
+
+  .body {
+    min-width: none;
+  }
+
+  .settings-wrapper {
+    width: 90%;
+  }
+
+  .search-form {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 }
