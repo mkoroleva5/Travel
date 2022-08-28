@@ -1,2 +1,2 @@
-# mkoroleva5-JSFEPRESCHOOL2022Q2
-Private repository for @mkoroleva5
+Stage 0 task  
+https://github.com/rolling-scopes-school/tasks/blob/master/tasks/travel/travel.md
